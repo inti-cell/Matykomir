@@ -9,13 +9,18 @@ runs-on: ubuntu-latest
 steps:
 - name: Checkout repository
 uses: actions/checkout@v4
+​- name: Set up JDK 17
+uses: actions/setup-java@v4
+with:
+distribution: 'temurin'
+java-version: '17'
 ​- name: Set up Node.js
 uses: actions/setup-node@v4
 with:
 node-version: '20'
 ​- name: Install Bubblewrap CLI
 run: npm install -g @bubblewrap/cli
-​- name: Initialize PWA Builder Manifest
+​- name: Create Web Manifest JSON
 run: |
 cat << 'EOF' > manifest.json
 {
@@ -28,13 +33,15 @@ cat << 'EOF' > manifest.json
 "icons": []
 }
 EOF
-​- name: Build Android App (APK)
+​- name: Initialize and Build TWA (APK)
 run: |
-bubblewrap init --manifest=manifest.json --directory=android-app --skip-validation || true
+bubblewrap init --manifest=manifest.json --directory=android-app --skip-validation --name="Матюкомір" --packageId="com.matykomir.app" --iconUrl="https://raw.githubusercontent.com/inti-cell/Matykomir/main/icon.png" --color="#090d16" --themeColor="#090d16" --navigationColor="#090d16" --navigationColorDark="#090d16" --splashScreenColor="#090d16" --shortcuts="[]" --webkitMode="default" || true
+cd android-app && bubblewrap build || true
 ​- name: Upload APK Artifact
 uses: actions/upload-artifact@v4
 with:
 name: Matykomir-APK
 path: |
 .apk
-android-app/app/build/outputs/apk//.apk
+android-app//.apk
+android-app/app/build/outputs/apk//*.apk
