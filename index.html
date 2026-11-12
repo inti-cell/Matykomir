@@ -55,11 +55,22 @@ h1{font-size:20px}.name{color:#ff416c;background:transparent;border:0;outline:0;
 </div>
 
 <div class="screen" id="screen-notebook">
-<h2 class="screen-title">❤️ Блокнот «Що вона любить»</h2>
+<h2 class="screen-title">❤️ Блокнот</h2>
 <section class="section">
-<div class="field"><label>Що саме любить / примітка</label><textarea id="loveText" placeholder="Улюблені квіти, їжа, напої, подарунки, місця..."></textarea></div>
-<button class="btn primary wide" onclick="addLove()">➕ Додати до блокнота</button>
-<div id="loveList"></div>
+<h2>❤️ Що любить</h2>
+<div class="field"><label>Додати те, що любить</label><textarea id="loveText" placeholder="Улюблені квіти, їжа, напої, подарунки, місця..."></textarea></div>
+<button class="btn primary wide" onclick="addLove()">➕ Додати</button>
+</section>
+<section class="section">
+<h2>💔 Що не любить</h2>
+<div class="field"><label>Додати те, що не любить</label><textarea id="dislikeText" placeholder="Що не подобається, чого краще уникати..."></textarea></div>
+<button class="btn primary wide" onclick="addDislike()">➕ Додати</button>
+</section>
+<section class="section">
+<h2>📒 Збережені записи</h2>
+<h2 style="color:#ff8196">❤️ Що любить</h2><div id="loveList"></div>
+<div class="divider" style="height:1px;background:#253149;margin:12px 0"></div>
+<h2 style="color:#ff8196">💔 Що не любить</h2><div id="dislikeList"></div>
 </section>
 </div>
 
@@ -68,8 +79,9 @@ h1{font-size:20px}.name{color:#ff416c;background:transparent;border:0;outline:0;
 <section class="section">
 <h2>🎂 День народження</h2>
 <div class="field"><label>Дата народження</label><input class="input" type="date" id="birthday"></div>
-<button class="btn primary wide" onclick="saveBirthday()">Зберегти день народження</button>
+<button class="btn primary wide" id="birthdaySave" onclick="saveBirthday()">Зберегти день народження</button>
 <div class="notice" id="birthdayInfo">Додай дату, щоб бачити, скільки залишилося до свята.</div>
+<div class="muted" id="birthdayEditHint" style="margin-top:8px"></div>
 </section>
 <section class="section">
 <h2>📅 Інші важливі дати</h2>
@@ -78,6 +90,9 @@ h1{font-size:20px}.name{color:#ff416c;background:transparent;border:0;outline:0;
 <div class="field"><label>Примітка (необов'язково)</label><textarea id="eventNote" placeholder="Додаткова інформація"></textarea></div>
 <label class="toggle"><input type="checkbox" id="eventYearly"> Повторювати щороку</label>
 <button class="btn primary wide" onclick="addEvent()">➕ Зберегти дату</button>
+</section>
+<section class="section">
+<h2>🗓️ Збережені дати</h2>
 <div id="eventList"></div>
 </section>
 <section class="section">
@@ -93,6 +108,7 @@ h1{font-size:20px}.name{color:#ff416c;background:transparent;border:0;outline:0;
 <div class="actions"><button class="btn" onclick="exportData()">📥 Експорт</button><button class="btn danger" onclick="openClear()">🗑️ Очистити історію матюків</button></div>
 <p class="muted">Очищення видаляє лише історію матюків і серію. Записи блокнота та важливі дати залишаються.</p>
 </section>
+<p class="muted" style="text-align:center;margin:28px 0 12px;">© Mike Steve · 12.11.2026</p>
 </div>
 </main>
 <div id="toast" class="toast"></div>
@@ -110,13 +126,17 @@ const state = {
  record:read('mat_streak_record',0),
  birthday:localStorage.getItem('mat_birthday')||'',
  loves:read('mat_loves',[]),
+ dislikes:read('mat_dislikes',[]),
  events:read('mat_events',[]),
+ birthdayName:localStorage.getItem('mat_birthday_name')||'',
  seen:read('mat_seen_reminders',[]),
  period:'all'
 };
 if(!state.first && state.items.length){state.first=state.items.slice().sort((a,b)=>new Date(a.timestamp)-new Date(b.timestamp))[0].timestamp;localStorage.setItem('mat_first_swear',state.first);localStorage.setItem('mat_start_date',state.first);}
 $('targetName').value=state.name;
 $('birthday').value=state.birthday;
+if(state.birthday && !state.birthdayName){state.birthdayName=state.name;localStorage.setItem('mat_birthday_name',state.name);}
+updateBirthdayEditor();
 
 function dayKey(date){return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;}
 function dateOnly(s){const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d);}
@@ -167,17 +187,22 @@ function render(){
  $('rating').innerHTML='';
  if(!list.length){$('rating').innerHTML='<div class="empty">Матюків не зафіксовано 😇</div>';}
  else {const c={};list.forEach(i=>c[i.word]=(c[i.word]||0)+1);const sorted=Object.keys(c).sort((a,b)=>c[b]-c[a]);sorted.forEach((w,i)=>{const row=document.createElement('div');row.className='rowitem';const top=document.createElement('div');top.className='rowtop';const label=document.createElement('strong');label.textContent=(i+1)+'. '+w;const n=document.createElement('span');n.style.color='#ff8196';n.textContent=c[w]+' разів';top.append(label,n);const bar=document.createElement('div');bar.className='bar';const fill=document.createElement('i');fill.style.width=(c[w]/c[sorted[0]]*100)+'%';bar.append(fill);row.append(top,bar);$('rating').append(row);});}
- renderBirthday();renderLoves();renderEvents();renderReminderList();
+ renderBirthday();renderLoves();renderDislikes();renderEvents();renderReminderList();
 }
 function showScreen(name,button){document.querySelectorAll('.screen').forEach(el=>el.classList.remove('active'));const target=$('screen-'+name);if(target)target.classList.add('active');document.querySelectorAll('.navbtn').forEach(el=>el.classList.toggle('active',el.dataset.screen===name));window.scrollTo({top:0,behavior:'smooth'});}
 function setPeriod(p,el){state.period=p;document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');render();}
-function saveBirthday(){state.birthday=$('birthday').value;localStorage.setItem('mat_birthday',state.birthday);checkReminders();render();showToast('День народження збережено 🎂');}
+function saveBirthday(){if(!canEditBirthday())return;state.birthday=$('birthday').value;localStorage.setItem('mat_birthday',state.birthday);state.birthdayName=state.name;localStorage.setItem('mat_birthday_name',state.name);updateBirthdayEditor();checkReminders();render();showToast('День народження збережено 🎂');}
+function canEditBirthday(){return !state.birthday || state.name.trim()!==state.birthdayName;}
+function updateBirthdayEditor(){const editable=canEditBirthday();$('birthday').disabled=!editable;$('birthdaySave').disabled=!editable;$('birthdaySave').style.opacity=editable?'1':'.45';$('birthdayEditHint').textContent=editable?(state.birthday?'Ім’я змінено — можна оновити дату народження.':'Вибери дату народження один раз.'):'Щоб змінити дату, спочатку зміни ім’я людини у верхній частині екрана.';}
 function nextBirthday(){
  if(!state.birthday)return null;const b=dateOnly(state.birthday),now=new Date();let y=now.getFullYear();let d=new Date(y,b.getMonth(),b.getDate());if(d<new Date(now.getFullYear(),now.getMonth(),now.getDate()))d=new Date(y+1,b.getMonth(),b.getDate());return d;
 }
 function renderBirthday(){const d=nextBirthday();$('birthdayInfo').textContent=!d?'Додай дату, щоб бачити, скільки залишилося до свята.':dayDiff(new Date(),d)===0?'🎉 День народження сьогодні!':`До дня народження залишилося ${dayDiff(new Date(),d)} дн. (${fmt(d)})`;}
-function addLove(){const text=$('loveText').value.trim();if(!text)return;state.loves.push({id:Date.now(),text});save('mat_loves',state.loves);$('loveText').value='';renderLoves();showToast('Додано до блокнота ❤️');}
-function renderLoves(){$('loveList').innerHTML='';if(!state.loves.length){$('loveList').innerHTML='<div class="empty">Тут поки немає записів.</div>';return;}state.loves.forEach(item=>{const row=document.createElement('div');row.className='rowitem rowtop';const txt=document.createElement('span');txt.style.whiteSpace='pre-wrap';txt.textContent=item.text;const del=document.createElement('button');del.className='smallbtn del';del.textContent='Видалити';del.onclick=()=>{state.loves=state.loves.filter(x=>x.id!==item.id);save('mat_loves',state.loves);renderLoves();};row.append(txt,del);$('loveList').append(row);});}
+function addLove(){const text=$('loveText').value.trim();if(!text)return;state.loves.push({id:Date.now(),text});save('mat_loves',state.loves);$('loveText').value='';renderLoves();showToast('Додано до списку ❤️');}
+function addDislike(){const text=$('dislikeText').value.trim();if(!text)return;state.dislikes.push({id:Date.now(),text});save('mat_dislikes',state.dislikes);$('dislikeText').value='';renderDislikes();showToast('Додано до списку 💔');}
+function renderList(container,items,key,empty){const el=$(container);el.innerHTML='';if(!items.length){el.innerHTML='<div class="empty">'+empty+'</div>';return;}items.forEach(item=>{const row=document.createElement('div');row.className='rowitem rowtop';const txt=document.createElement('span');txt.style.whiteSpace='pre-wrap';txt.textContent=item.text;const del=document.createElement('button');del.className='smallbtn del';del.textContent='Видалити';del.onclick=()=>{state[key]=state[key].filter(x=>x.id!==item.id);save(key==='loves'?'mat_loves':'mat_dislikes',state[key]);key==='loves'?renderLoves():renderDislikes();};row.append(txt,del);el.append(row);});}
+function renderLoves(){renderList('loveList',state.loves,'loves','Поки немає записів.');}
+function renderDislikes(){renderList('dislikeList',state.dislikes,'dislikes','Поки немає записів.');}
 function addEvent(){const title=$('eventTitle').value.trim(),date=$('eventDate').value;if(!title||!date){showToast('Вкажи назву та дату');return;}state.events.push({id:Date.now(),title,date,note:$('eventNote').value.trim(),yearly:$('eventYearly').checked});save('mat_events',state.events);$('eventTitle').value='';$('eventDate').value='';$('eventNote').value='';$('eventYearly').checked=false;renderEvents();checkReminders();showToast('Важливу дату збережено 📅');}
 function nextEventDate(e){const base=dateOnly(e.date);if(!e.yearly)return base;const now=new Date();let d=new Date(now.getFullYear(),base.getMonth(),base.getDate());if(d<new Date(now.getFullYear(),now.getMonth(),now.getDate()))d=new Date(now.getFullYear()+1,base.getMonth(),base.getDate());return d;}
 function renderEvents(){$('eventList').innerHTML='';if(!state.events.length){$('eventList').innerHTML='<div class="empty">Важливих дат ще немає.</div>';return;}state.events.forEach(e=>{const row=document.createElement('div');row.className='rowitem';const top=document.createElement('div');top.className='rowtop';const title=document.createElement('strong');title.textContent=e.title;const del=document.createElement('button');del.className='smallbtn del';del.textContent='Видалити';del.onclick=()=>{state.events=state.events.filter(x=>x.id!==e.id);save('mat_events',state.events);renderEvents();};top.append(title,del);const info=document.createElement('div');info.className='muted';info.textContent=fmt(nextEventDate(e))+(e.yearly?' · щороку':'');row.append(top,info);if(e.note){const note=document.createElement('div');note.className='muted';note.textContent=e.note;row.append(note);}$('eventList').append(row);});}
@@ -192,12 +217,12 @@ function checkReminders(){
  renderReminderList();
 }
 function renderReminderList(){const inbox=read('mat_notifications',[]);$('reminders').innerHTML='';if(!inbox.length){$('reminders').innerHTML='<div class="empty">Поки немає нових нагадувань.</div>';return;}inbox.slice(0,12).forEach(n=>{const el=document.createElement('div');el.className='notice';el.textContent=n.text+' · '+new Date(n.date).toLocaleDateString('uk-UA');$('reminders').append(el);});}
-function exportData(){const data={name:state.name,items:state.items,firstSwear:state.first,streakRecord:state.record,birthday:state.birthday,loves:state.loves,events:state.events};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='matykomir-backup.json';a.click();URL.revokeObjectURL(url);showToast('Резервну копію завантажено');}
+function exportData(){const data={name:state.name,items:state.items,firstSwear:state.first,streakRecord:state.record,birthday:state.birthday,birthdayName:state.birthdayName,loves:state.loves,dislikes:state.dislikes,events:state.events};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='matykomir-backup.json';a.click();URL.revokeObjectURL(url);showToast('Резервну копію завантажено');}
 function openClear(){$('clearModal').classList.add('open');}function closeClear(){$('clearModal').classList.remove('open');}
 function clearHistory(){state.items=[];state.first=null;state.record=0;localStorage.removeItem('mat_items');localStorage.removeItem('mat_start_date');localStorage.removeItem('mat_first_swear');save('mat_streak_record',0);closeClear();render();showToast('Історію матюків очищено');}
 const facts=['Лайка часто використовується для вираження сильних емоцій.','У різних мовах лайка має власні культурні особливості.','Інтонація може суттєво змінювати сприйняття одного й того самого слова.','Люди іноді використовують лайку як спосіб зняти емоційну напругу.','Контекст і стосунки між співрозмовниками впливають на сприйняття лайки.'];
 function newFact(){$('fact').textContent=facts[Math.floor(Math.random()*facts.length)];}
-$('targetName').addEventListener('input',e=>{state.name=e.target.value.trim()||'Ірина';localStorage.setItem('mat_target_name',state.name);renderBirthday();});
+$('targetName').addEventListener('input',e=>{state.name=e.target.value.trim()||'Ірина';localStorage.setItem('mat_target_name',state.name);updateBirthdayEditor();renderBirthday();});
 $('word').addEventListener('keydown',e=>{if(e.key==='Enter')addSwear();});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkReminders();});
 render();checkReminders();newFact();
