@@ -1,0 +1,40 @@
+name: Build Android APK from PWA
+​on:
+push:
+branches: [ main ]
+workflow_dispatch:
+​jobs:
+build:
+runs-on: ubuntu-latest
+steps:
+- name: Checkout repository
+uses: actions/checkout@v4
+​- name: Set up Node.js
+uses: actions/setup-node@v4
+with:
+node-version: '20'
+​- name: Install Bubblewrap CLI
+run: npm install -g @bubblewrap/cli
+​- name: Initialize PWA Builder Manifest
+run: |
+cat << 'EOF' > manifest.json
+{
+"name": "Матюкомір",
+"short_name": "Матюкомір",
+"start_url": "./index.html",
+"display": "standalone",
+"background_color": "#090d16",
+"theme_color": "#090d16",
+"icons": []
+}
+EOF
+​- name: Build Android App (APK)
+run: |
+bubblewrap init --manifest=manifest.json --directory=android-app --skip-validation || true
+​- name: Upload APK Artifact
+uses: actions/upload-artifact@v4
+with:
+name: Matykomir-APK
+path: |
+.apk
+android-app/app/build/outputs/apk//.apk
