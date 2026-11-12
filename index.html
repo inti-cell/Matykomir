@@ -37,8 +37,7 @@ padding: 18px;
 box-shadow: 0 20px 40px rgba(0,0,0,0.6);
 border: 1px solid #1a233a;
 }
-​/* Header */
-.header-box {
+​.header-box {
 display: flex;
 align-items: center;
 justify-content: space-between;
@@ -84,15 +83,13 @@ border: none;
 outline: none;
 width: auto;
 max-width: 140px;
-transition: all 0.2s;
 }
 ​.subtitle {
 font-size: 12px;
 color: #7a8b9e;
 margin-top: 2px;
 }
-​/* Gender selector */
-.gender-selector {
+​.gender-selector {
 display: flex;
 gap: 4px;
 background: #1c273e;
@@ -115,8 +112,7 @@ transition: all 0.2s;
 background: #ff416c;
 color: #ffffff;
 }
-​/* Action Top Buttons */
-.top-actions {
+​.top-actions {
 display: flex;
 gap: 8px;
 margin-bottom: 20px;
@@ -133,7 +129,6 @@ display: flex;
 align-items: center;
 justify-content: center;
 gap: 6px;
-transition: transform 0.1s, opacity 0.2s;
 }
 .action-btn:active { transform: scale(0.97); }
 ​.btn-export {
@@ -146,8 +141,7 @@ background: #2b1724;
 color: #ff4b6e;
 border: 1px solid #441e33;
 }
-​/* Grid Cards */
-.stats-grid {
+​.stats-grid {
 display: grid;
 grid-template-columns: 1fr 1fr;
 gap: 12px;
@@ -198,8 +192,7 @@ line-height: 1.3;
 border: 1px solid #3d2516;
 background: radial-gradient(circle at top right, #261710, #141c2e);
 }
-​/* Form Card */
-.form-card {
+​.form-card, .likes-card, .analytics-card {
 background: #141c2e;
 border-radius: 18px;
 padding: 16px;
@@ -235,9 +228,7 @@ color: #ffffff;
 font-size: 14px;
 outline: none;
 }
-.text-input:focus {
-border-color: #ff416c;
-}
+.text-input:focus { border-color: #ff416c; }
 ​.toggle-box {
 display: flex;
 align-items: center;
@@ -265,9 +256,7 @@ border-radius: 20px;
 position: relative;
 transition: background 0.2s;
 }
-.toggle-switch.active {
-background: #ff416c;
-}
+.toggle-switch.active { background: #ff416c; }
 .toggle-knob {
 width: 18px;
 height: 18px;
@@ -278,9 +267,7 @@ top: 2px;
 left: 2px;
 transition: transform 0.2s;
 }
-.toggle-switch.active .toggle-knob {
-transform: translateX(18px);
-}
+.toggle-switch.active .toggle-knob { transform: translateX(18px); }
 ​.btn-submit {
 width: 100%;
 padding: 14px;
@@ -314,15 +301,6 @@ font-weight: 700;
 cursor: pointer;
 border: 1px solid #263554;
 }
-.chip:active { background: #ff416c; color: #fff; }
-​/* Likes Notebook Section */
-.likes-card {
-background: #141c2e;
-border-radius: 18px;
-padding: 16px;
-border: 1px solid #1e2a45;
-margin-bottom: 20px;
-}
 ​.likes-list {
 display: flex;
 flex-direction: column;
@@ -343,10 +321,6 @@ gap: 10px;
 font-size: 13px;
 color: #e2e8f0;
 }
-​.like-text {
-word-break: break-word;
-flex: 1;
-}
 ​.btn-delete-like {
 background: transparent;
 border: none;
@@ -354,17 +328,6 @@ color: #ff4b6e;
 font-size: 14px;
 cursor: pointer;
 padding: 4px;
-opacity: 0.7;
-transition: opacity 0.2s;
-}
-.btn-delete-like:hover { opacity: 1; }
-​/* Analytics Section */
-.analytics-card {
-background: #141c2e;
-border-radius: 18px;
-padding: 16px;
-border: 1px solid #1e2a45;
-margin-bottom: 20px;
 }
 ​.tabs {
 display: flex;
@@ -383,10 +346,7 @@ color: #7a8b9e;
 border-radius: 9px;
 cursor: pointer;
 }
-.tab.active {
-background: #ff416c;
-color: #ffffff;
-}
+.tab.active { background: #ff416c; color: #ffffff; }
 ​.report-box {
 background: #1a1524;
 border: 1px solid #381c30;
@@ -428,8 +388,7 @@ color: #5c6e85;
 }
 .ghost-icon { font-size: 32px; margin-bottom: 6px; }
 .empty-text { font-size: 12px; }
-​/* Fact Card */
-.fact-card {
+​.fact-card {
 background: linear-gradient(135deg, #161e33, #0f1626);
 border-radius: 18px;
 padding: 16px;
@@ -475,8 +434,7 @@ font-weight: 700;
 cursor: pointer;
 float: right;
 }
-​/* Toast & Modal */
-.toast {
+​.toast {
 position: fixed;
 bottom: 24px;
 left: 50%;
@@ -493,9 +451,7 @@ transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 z-index: 1000;
 white-space: nowrap;
 }
-.toast.show {
-transform: translateX(-50%) translateY(0);
-}
+.toast.show { transform: translateX(-50%) translateY(0); }
 ​.modal-overlay {
 position: fixed;
 inset: 0;
@@ -507,9 +463,7 @@ justify-content: center;
 padding: 20px;
 z-index: 1001;
 }
-.modal-overlay.open {
-display: flex;
-}
+.modal-overlay.open { display: flex; }
 .modal-box {
 background: #141c2e;
 border: 1px solid #283754;
@@ -519,44 +473,16 @@ width: 100%;
 max-width: 340px;
 text-align: center;
 }
-.modal-title {
-font-size: 16px;
-font-weight: 800;
-color: #ffffff;
-margin-bottom: 8px;
-}
-.modal-desc {
-font-size: 13px;
-color: #8da4c4;
-margin-bottom: 18px;
-line-height: 1.4;
-}
-.modal-actions {
-display: flex;
-gap: 10px;
-}
-.modal-btn {
-flex: 1;
-padding: 10px;
-border-radius: 12px;
-border: none;
-font-weight: 700;
-font-size: 13px;
-cursor: pointer;
-}
-.modal-cancel {
-background: #1c273e;
-color: #8da4c4;
-}
-.modal-confirm {
-background: #ff416c;
-color: #ffffff;
-}
+.modal-title { font-size: 16px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
+.modal-desc { font-size: 13px; color: #8da4c4; margin-bottom: 18px; line-height: 1.4; }
+.modal-actions { display: flex; gap: 10px; }
+.modal-btn { flex: 1; padding: 10px; border-radius: 12px; border: none; font-weight: 700; font-size: 13px; cursor: pointer; }
+.modal-cancel { background: #1c273e; color: #8da4c4; }
+.modal-confirm { background: #ff416c; color: #ffffff; }
 </style>
 </head>
 <body>
 ​<div class="app-container">
-<!-- Header -->
 <div class="header-box">
 <div class="header-left">
 <div class="avatar" id="avatar-emoji">🤬</div>
@@ -573,13 +499,11 @@ color: #ffffff;
 <button class="gender-btn" id="gender-m" onclick="setGender('m')">Ч</button>
 </div>
 </div>
-​<!-- Action Top Buttons -->
-<div class="top-actions">
+​<div class="top-actions">
 <button class="action-btn btn-export" onclick="copySummaryReport()">📥 Експорт</button>
 <button class="action-btn btn-clear" onclick="askClearHistory()">🗑️ Очистити</button>
 </div>
-​<!-- Grid Cards -->
-<div class="stats-grid">
+​<div class="stats-grid">
 <div class="card">
 <div class="card-header">
 <span>Усього матюків</span>
@@ -638,8 +562,7 @@ color: #ffffff;
 </div>
 </div>
 </div>
-​<!-- Form Card -->
-<div class="form-card">
+​<div class="form-card">
 <div class="form-title">
 <span style="color: #ff416c; font-size: 18px;">➕</span>
 <span>Зафіксувати новий спалах</span>
@@ -666,15 +589,14 @@ color: #ffffff;
 <div class="chip" onclick="quickAdd('Пиздець')">+ Пиздець</div>
 </div>
 </div>
-​<!-- Likes Notebook Section -->
-<div class="likes-card">
+​<div class="likes-card">
 <div class="form-title">
 <span style="color: #ffc107; font-size: 18px;">💖</span>
 <span>Що любить <span class="dynamic-name">Ірина</span> (Блокнот)</span>
 </div>
 ​<div class="input-group">
 <label class="input-label">Вподобання, смаколик чи подарунок</label>
-<input type="text" id="like-item-input" class="text-input" placeholder="Наприклад: Кава з карамелью, квіти, чорний шоколад">
+<input type="text" id="like-item-input" class="text-input" placeholder="Наприклад: Кава з карамелью, квіти, шоколад">
 </div>
 ​<button class="btn-submit" style="background: linear-gradient(135deg, #f5af19, #f12711); box-shadow: 0 4px 15px rgba(245, 175, 25, 0.4);" onclick="addLikeItem()">
 <span>✨ Додати до блокнота</span>
@@ -685,8 +607,7 @@ color: #ffffff;
 </div>
 </div>
 </div>
-​<!-- Analytics Section -->
-<div class="analytics-card">
+​<div class="analytics-card">
 <div class="tabs">
 <div class="tab active" onclick="setPeriod('all', this)">Все</div>
 <div class="tab" onclick="setPeriod('month', this)">Цей місяць</div>
@@ -713,8 +634,7 @@ color: #ffffff;
 </div>
 </div>
 </div>
-​<!-- Fact Card -->
-<div class="fact-card">
+​<div class="fact-card">
 <div class="fact-header">
 <div class="fact-title">💡 365 фактів про лайку</div>
 <div class="badge-day" id="fact-number-badge">День 1/365</div>
@@ -726,8 +646,7 @@ color: #ffffff;
 <div style="clear: both;"></div>
 </div>
 </div>
-​<!-- Toast & Modal -->
-<div id="toast-msg" class="toast">Скопійовано!</div>
+​<div id="toast-msg" class="toast">Скопійовано!</div>
 ​<div id="confirm-modal" class="modal-overlay">
 <div class="modal-box">
 <div class="modal-title">🗑️ Очистити всю історію?</div>
@@ -804,7 +723,7 @@ document.getElementById('gender-f').classList.toggle('active', state.gender === 
 document.getElementById('gender-m').classList.toggle('active', state.gender === 'm');
 document.getElementById('avatar-emoji').innerText = state.gender === 'f' ? '🤬' : '😈';
 document.getElementById('targeted-card-title').innerText = state.gender === 'f' ? 'Послала МЕНЕ' : 'Послав МЕНЕ';
-document.getElementById('toggle-target-label').innerText = state.gender === 'f' ? '🎯 Це посилало МЕНЕ' : '🎯 Це посилало МЕНЕ';
+document.getElementById('toggle-target-label').innerText = '🎯 Це посилало МЕНЕ';
 }
 ​function updateAllDynamicNames() {
 const name = state.targetName;
@@ -855,7 +774,7 @@ localStorage.setItem('mat_likes', JSON.stringify(state.likes));
 input.value = '';
 ​playBeep(700, 'sine');
 renderLikesUI();
-showToast('💖 Додано до блокнота вподобань!');
+showToast('💖 Додано до блокнота!');
 }
 ​function deleteLikeItem(id) {
 state.likes = state.likes.filter(item => item.id !== id);
@@ -865,7 +784,7 @@ renderLikesUI();
 ​function renderLikesUI() {
 const container = document.getElementById('likes-container');
 if (state.likes.length === 0) {
-container.innerHTML = <div class="empty-state" style="padding: 10px 0;"> <div class="empty-text">Блокнот поки порожній. Додайте що любить людина!</div> </div>;
+container.innerHTML = <div class="empty-state" style="padding: 10px 0;"> <div class="empty-text">Блокнот поки порожній. Додайте що вона/він любить!</div> </div>;
 return;
 }
 ​container.innerHTML = state.likes.map(item => <div class="like-item"> <span class="like-text">❤️ ${item.text}</span> <button class="btn-delete-like" onclick="deleteLikeItem(${item.id})">🗑️</button> </div>).join('');
@@ -917,11 +836,9 @@ const targetedPct = allItems.length > 0 ? Math.round((targetedItems.length / all
 document.getElementById('targeted-pct-text').innerText = ${targetedPct}% від усіх матюків;
 ​const swearDays = new Set(allItems.map(i => new Date(i.timestamp).toDateString()));
 document.getElementById('streak-days-count').innerText = swearDays.size;
-​const angelText = 'янгол!';
-const palyayeText = 'палає!';
-document.getElementById('streak-status-sub').innerHTML = swearDays.size > 0
-? 🔥 Активний спалах<br><span>(${name} ${palyayeText})</span>
-: ❄️ Згасло сьогодні<br><span>(${name} ${angelText})</span>;
+​document.getElementById('streak-status-sub').innerHTML = swearDays.size > 0
+? 🔥 Активний спалах<br><span>(${name} палає!)</span>
+: ❄️ Згасло сьогодні<br><span>(${name} янгол!)</span>;
 ​const overallCounts = {};
 allItems.forEach(i => overallCounts[i.word] = (overallCounts[i.word] || 0) + 1);
 const topWord = Object.keys(overallCounts).sort((a, b) => overallCounts[b] - overallCounts[a])[0] || '---';
