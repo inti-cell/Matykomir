@@ -489,7 +489,7 @@ function renderEvents(){
        localStorage.removeItem('mat_birthday');
        updateBirthdayEditor();
      } else {
-       state.events = state.events.filter(x => x.rawId !== item.rawId);
+       state.events = state.events.filter(x => x.id !== item.rawId);
        save('mat_events', state.events);
      }
      delete state.notifications[item.id];
