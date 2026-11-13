@@ -21,7 +21,7 @@ h1{font-size:20px}.name{color:#ff416c;background:transparent;border:0;outline:0;
 </head>
 <body>
 <main class="app">
-<header><div class="avatar">🤬</div><div><div class="inline" style="align-items:baseline"><h1>Матюкомір</h1><input id="targetName" class="name" value="Ірина" aria-label="Ім'я людини"></div><div class="sub">Персональний аналізатор красномовства</div></div></header>
+<header><div class="avatar">🤬</div><div><div class="inline" style="align-items:baseline"><h1>Матюкомір</h1><input id="targetName" class="name" value="Уляна" aria-label="Ім'я людини"></div><div class="sub">Персональний аналізатор красномовства</div></div></header>
 <nav class="bottomnav" aria-label="Головне меню">
 <button class="navbtn active" data-screen="home" onclick="showScreen('home',this)"><span>🏠</span><span>Головна</span></button>
 <button class="navbtn" data-screen="notebook" onclick="showScreen('notebook',this)"><span>❤️</span><span>Блокнот</span></button>
@@ -32,7 +32,7 @@ h1{font-size:20px}.name{color:#ff416c;background:transparent;border:0;outline:0;
 <div class="screen active" id="screen-home">
 <div class="grid">
  <div class="card"><div class="muted">Усього матюків 💀</div><div class="value" id="total">0</div><div class="muted">За весь час</div></div>
- <div class="card"><div class="muted orange">Матюкливий вогонь 🔥</div><div class="value orange" id="streak">0</div><div class="muted" id="streakLabel">Поточна серія, днів</div></div>
+ <div class="card"><div class="muted orange" id="streakTitleLabel">Матюкливий вогонь 🔥</div><div class="value orange" id="streak">0</div><div class="muted" id="streakLabel">Поточна серія, днів</div></div>
  <div class="card"><div class="muted">Послала МЕНЕ 🎯</div><div class="value" id="targeted">0</div><div class="muted" id="targetPct">0% від усіх матюків</div></div>
  <div class="card"><div class="muted">Улюблений матюк 👑</div><div class="value" id="topWord" style="font-size:19px">---</div><div class="muted" id="topCount">0 використань</div></div>
  <div class="card full"><div><div class="muted">📅 Перший матюк / початок записів</div><div class="muted" id="tracking">Очікується перший спалах</div></div><strong id="firstDate" style="text-align:right;font-size:13px">Не розпочато</strong></div>
@@ -40,7 +40,7 @@ h1{font-size:20px}.name{color:#ff416c;background:transparent;border:0;outline:0;
 </div>
 <section class="section">
 <h2>➕ Зафіксувати новий спалах</h2>
-<div class="field"><label>Слово / фраза</label><input class="input" id="word" placeholder="Наприклад: Блін, Нах**, Сука"></div>
+<div class="field"><label>Слово / фраза</label><input class="input" id="word" placeholder="Наприклад: блять, сука, хуй"></div>
 <label class="toggle"><input type="checkbox" id="isTargeted"> 🎯 Це посилання МЕНЕ</label>
 <button class="btn primary wide" onclick="addSwear()">🚀 Записати</button>
 <div class="chips">
@@ -66,7 +66,7 @@ h1{font-size:20px}.name{color:#ff416c;background:transparent;border:0;outline:0;
 <div class="screen" id="screen-notebook">
 <h2 class="screen-title">❤️ Блокнот</h2>
 <div class="inner-tabs">
-<button class="inner-tab active" id="notebookTabAdd" onclick="setInnerTab('notebook','add')">➕ Додати</button>
+<button class="inner-tab active" id="notebookTabAdd" onclick="setInnerTab('notebook','add')">➕ Записи</button>
 <button class="inner-tab" id="notebookTabSaved" onclick="setInnerTab('notebook','saved')">📒 Збережене</button>
 </div>
 <div class="inner-pane active" id="notebookAddPane">
@@ -93,7 +93,7 @@ h1{font-size:20px}.name{color:#ff416c;background:transparent;border:0;outline:0;
 <div class="screen" id="screen-dates">
 <h2 class="screen-title">📅 Дати та нагадування</h2>
 <div class="inner-tabs">
-<button class="inner-tab active" id="datesTabAdd" onclick="setInnerTab('dates','add')">➕ Додати</button>
+<button class="inner-tab active" id="datesTabAdd" onclick="setInnerTab('dates','add')">📅 Дати</button>
 <button class="inner-tab" id="datesTabSaved" onclick="setInnerTab('dates','saved')">🗓️ Збережене</button>
 </div>
 <div class="inner-pane active" id="datesAddPane">
@@ -130,8 +130,17 @@ h1{font-size:20px}.name{color:#ff416c;background:transparent;border:0;outline:0;
 <div class="screen" id="screen-settings">
 <h2 class="screen-title">⚙️ Налаштування</h2>
 <section class="section">
-<h2>ℹ️ Інформація</h2>
-<p class="muted" id="settingsInfoText" style="line-height:1.5;">Дата збережена. Щоб змінити її, зміни ім'я людини у верхній частині екрана. Додаткові системні налаштування та інформація про роботу застосунку.</p>
+<h2>🔊 Звукові ефекти</h2>
+<label class="toggle"><input type="checkbox" id="soundToggle" checked onchange="toggleSound(this)"> Увімкнути звуки у застосунку</label>
+</section>
+<section class="section">
+<h2>ℹ️ Як працює застосунок</h2>
+<p class="muted" style="line-height:1.6;">
+🔹 <b>Головна:</b> Фіксуйте спалахи нецензурної лексики, відстежуйте статистику за періодами, рейтинг улюблених слів та серію днів без пропускання (вогник змінює колір та форму кожні 10, 30, 100+ днів у стилі стріків TikTok!).<br><br>
+🔹 <b>Блокнот:</b> Зберігайте вподобання людини (що любить / не любить), щоб завжди мати їх під рукою.<br><br>
+🔹 <b>Дати:</b> Додавайте день народження та важливі події з нагадуваннями. Дата народження прив'язується до імені. Щоб змінити дату народження, змініть ім'я людини у верхній шапці програми.<br><br>
+🔹 <b>Експорт / Очищення:</b> Робіть резервні копії даних у форматі JSON або очищуйте історію матюків за потреби.
+</p>
 </section>
 <section class="section">
 <h2>Дані застосунку</h2>
@@ -150,9 +159,18 @@ const $ = id => document.getElementById(id);
 const read = (key, fallback) => { try { const v=localStorage.getItem(key); return v===null?fallback:JSON.parse(v); } catch { return fallback; } };
 const save = (key,value) => localStorage.setItem(key,JSON.stringify(value));
 
+let soundEnabled = read('mat_sound_enabled', true);
+$('soundToggle').checked = soundEnabled;
+function toggleSound(el) {
+  soundEnabled = el.checked;
+  save('mat_sound_enabled', soundEnabled);
+  if(soundEnabled) playSound('success');
+}
+
 // Звукові ефекти (Web Audio API)
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 function playSound(type) {
+  if (!soundEnabled) return;
   try {
     if (audioCtx.state === 'suspended') { audioCtx.resume(); }
     const osc = audioCtx.createOscillator();
@@ -190,7 +208,7 @@ function playSound(type) {
 }
 
 const state = {
- name:localStorage.getItem('mat_target_name')||'Ірина',
+ name:localStorage.getItem('mat_target_name')||'Уляна',
  items:read('mat_items',[]),
  first:localStorage.getItem('mat_first_swear')||localStorage.getItem('mat_start_date')||null,
  record:read('mat_streak_record',0),
@@ -212,7 +230,7 @@ function dayKey(date){return `${date.getFullYear()}-${String(date.getMonth()+1).
 function dateOnly(s){const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d);}
 function fmt(d,withTime=false){return new Date(d).toLocaleString('uk-UA',withTime?{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}:{day:'2-digit',month:'long',year:'numeric'});}
 function dayDiff(a,b){const x=new Date(a.getFullYear(),a.getMonth(),a.getDate());const y=new Date(b.getFullYear(),b.getMonth(),b.getDate());return Math.round((y-x)/86400000);}
-function showToast(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2600);}
+function showToast(msg){$('toast').textContent=msg;$('toast'].classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2600);}
 function persistItems(){save('mat_items',state.items);}
 function addSwear(){
  const word=$('word').value.trim();if(!word){showToast('Введи слово або фразу');playSound('delete');return;}
@@ -243,17 +261,63 @@ function filtered(){
  if(state.period==='month')return d>=new Date(now.getFullYear(),now.getMonth(),1);
  return true;});
 }
+
+function updateStreakStyle(streakVal) {
+  const labelEl = $('streakTitleLabel');
+  const valueEl = $('streak');
+  valueEl.textContent = streakVal;
+  
+  if (streakVal >= 100) {
+    const hundreds = Math.floor(streakVal / 100) * 100;
+    labelEl.textContent = `⚡ Ранг ${hundreds}+ 🔥`;
+    valueEl.style.color = '#00ffcc';
+  } else if (streakVal >= 30) {
+    labelEl.textContent = `💎 Мега Вогонь 🔥`;
+    valueEl.style.color = '#ff007f';
+  } else if (streakVal >= 10) {
+    labelEl.textContent = `🔥 Гаряча серія 🔥`;
+    valueEl.style.color = '#ffcc00';
+  } else {
+    labelEl.textContent = `Матюкливий вогонь 🔥`;
+    valueEl.style.color = '#ff9800';
+  }
+}
+
 function render(){
  const all=state.items, targeted=all.filter(i=>i.targeted).length, stats=streakStats();
  $('total').textContent=all.length;$('targeted').textContent=targeted;$('targetPct').textContent=(all.length?Math.round(targeted/all.length*100):0)+'% від усіх матюків';
- $('streak').textContent=stats.current;$('streakLabel').textContent=stats.current?'Поточна серія днів 🔥':'Поточна серія згасла';
+ updateStreakStyle(stats.current);
+ $('streakLabel').textContent=stats.current?'Поточна серія днів 🔥':'Поточна серія згасла';
  $('record').textContent=stats.best+' '+(stats.best===1?'день':'днів');$('recordDates').textContent='Найдовша серія поспіль · рекорд не згорає';
  const counts={};all.forEach(i=>counts[i.word]=(counts[i.word]||0)+1);const top=Object.keys(counts).sort((a,b)=>counts[b]-counts[a])[0];
  $('topWord').textContent=top||'---';$('topCount').textContent=top?counts[top]+' використань':'0 використань';
  $('firstDate').textContent=state.first?fmt(state.first,true):'Не розпочато';
  $('tracking').textContent=state.first?'Перший матюк зафіксовано точно':'Очікується перший спалах';
  const list=filtered(),pTarget=list.filter(i=>i.targeted).length;
- $('report').textContent=list.length?`За вибраний період: ${list.length} записів, із них ${pTarget} були спрямовані на тебе.`:'За вибраний період матюків не зафіксовано.';
+ 
+ // Формування повного звіту
+ let periodName = 'За весь час';
+ if(state.period==='month') periodName = 'За поточний місяць';
+ if(state.period==='week') periodName = 'За тиждень';
+ if(state.period==='today') periodName = 'Сьогодні';
+
+ let reportText = `📊 МАТЮКОМІР — АНАЛІТИКА (${periodName})\n`;
+ reportText += `👤 Ім'я: ${state.name}\n`;
+ reportText += `📌 Усього зафіксовано записів: ${list.length}\n`;
+ reportText += `🎯 Спрямовані на мене: ${pTarget} (${list.length?Math.round(pTarget/list.length*100):0}%)\n\n`;
+ 
+ if(!list.length) {
+   reportText += `Матюків за цей період не зафіксовано 😇`;
+ } else {
+   const c={};list.forEach(i=>c[i.word]=(c[i.word]||0)+1);
+   const sorted=Object.keys(c).sort((a,b)=>c[b]-c[a]);
+   reportText += `📋 Рейтинг слів:\n`;
+   sorted.forEach((w,i)=>{
+     reportText += `${i+1}. "${w}" — ${c[w]} раз(ів)\n`;
+   });
+ }
+ $('report').textContent = reportText;
+
  $('rating').innerHTML='';
  if(!list.length){$('rating').innerHTML='<div class="empty">Матюків не зафіксовано 😇</div>';}
  else {const c={};list.forEach(i=>c[i.word]=(c[i.word]||0)+1);const sorted=Object.keys(c).sort((a,b)=>c[b]-c[a]);sorted.forEach((w,i)=>{const row=document.createElement('div');row.className='rowitem';const top=document.createElement('div');top.className='rowtop';const label=document.createElement('strong');label.textContent=(i+1)+'. '+w;const n=document.createElement('span');n.style.color='#ff8196';n.textContent=c[w]+' разів';top.append(label,n);const bar=document.createElement('div');bar.className='bar';const fill=document.createElement('i');fill.style.width=(c[w]/c[sorted[0]]*100)+'%';bar.append(fill);row.append(top,bar);$('rating').append(row);});}
@@ -261,7 +325,7 @@ function render(){
 }
 function copyReport(){
  const text=$('report').textContent;
- navigator.clipboard.writeText(text).then(()=>{playSound('success');showToast('Аналітику скопійовано у буфер обміну 📋');}).catch(()=>{showToast('Не вдалося скопіювати');});
+ navigator.clipboard.writeText(text).then(()=>{playSound('success');showToast('Повну аналітику скопійовано! 📋');}).catch(()=>{showToast('Не вдалося скопіювати');});
 }
 function showScreen(name,button){
  playSound('click');
@@ -354,7 +418,7 @@ function closeClear(){playSound('click');$('clearModal').classList.remove('open'
 function clearHistory(){
  playSound('delete');state.items=[];state.first=null;state.record=0;localStorage.removeItem('mat_items');localStorage.removeItem('mat_start_date');localStorage.removeItem('mat_first_swear');save('mat_streak_record',0);closeClear();render();showToast('Історію матюків очищено');
 }
-$('targetName').addEventListener('input',e=>{state.name=e.target.value.trim()||'Ірина';localStorage.setItem('mat_target_name',state.name);updateBirthdayEditor();renderBirthday();});
+$('targetName').addEventListener('input',e=>{state.name=e.target.value.trim()||'Уляна';localStorage.setItem('mat_target_name',state.name);updateBirthdayEditor();renderBirthday();});
 $('word').addEventListener('keydown',e=>{if(e.key==='Enter')addSwear();});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkReminders();});
 render();checkReminders();
