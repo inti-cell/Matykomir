@@ -97,7 +97,10 @@ h1{font-size:20px}.name{color:#ff416c;background:transparent;border:0;outline:0;
 </div>
 <div class="inner-pane active" id="datesAddPane">
 <section class="section">
-<h2>🎂 День народження</h2>
+<div class="rowtop" style="margin-bottom:12px">
+  <h2 style="margin-bottom:0">🎂 День народження</h2>
+  <div id="birthdayNotifHolder"></div>
+</div>
 <div class="birthday-display" id="birthdayDisplay">🎂 День народження ще не додано</div>
 <div id="birthdayEditor" style="display:none">
 <div class="field"><label>Дата народження</label><input class="input" type="date" id="birthday"></div>
@@ -133,7 +136,7 @@ h1{font-size:20px}.name{color:#ff416c;background:transparent;border:0;outline:0;
 <p class="muted" style="line-height:1.6;">
 🔹 <b>Головна:</b> Фіксуйте спалахи нецензурної лексики, відстежуйте статистику за періодами, рейтинг улюблених слів та серію днів без пропускання (вогник змінює колір та форму кожні 10, 30, 100+ днів).<br><br>
 🔹 <b>Блокнот:</b> Зберігайте вподобання людини (що любить / не любить), щоб завжди мати їх під рукою.<br><br>
-🔹 <b>Дати:</b> Додавайте день народження та важливі події. Якщо наближається дата (за 15, 10, 5, 3, 1 день або в саму дату), на картці події з'явиться значок сповіщення. Натисніть на нього, щоб переглянути повідомлення та видалити їх усередині.<br><br>
+🔹 <b>Дати:</b> Додавайте день народження та важливі події. Якщо наближається дата (за 15, 10, 5, 3, 1 день або в саму дату), біля дня народження або на картці події з'явиться значок сповіщення. Натисніть на нього, щоб переглянути повідомлення та видалити їх усередині.<br><br>
 🔹 <b>Експорт / Очищення:</b> Робіть резервні копії даних у форматі JSON або очищуйте історію матюків за потреби.
 </p>
 </section>
@@ -360,7 +363,25 @@ function updateBirthdayEditor(){
 function nextBirthday(){
  if(!state.birthday)return null;const b=dateOnly(state.birthday),now=new Date();let y=now.getFullYear();let d=new Date(y,b.getMonth(),b.getDate());if(d<new Date(now.getFullYear(),now.getMonth(),now.getDate()))d=new Date(y+1,b.getMonth(),b.getDate());return d;
 }
-function renderBirthday(){const d=nextBirthday();$('birthdayInfo').textContent=!d?'Додай дату, щоб бачити, скільки залишилося до свята.':dayDiff(new Date(),d)===0?'🎉 День народження сьогодні!':`До дня народження залишилося ${dayDiff(new Date(),d)} дн. (${fmt(d)})`;}
+function renderBirthday(){
+ const d=nextBirthday();
+ $('birthdayInfo').textContent=!d?'Додай дату, щоб бачити, скільки залишилося до свята.':dayDiff(new Date(),d)===0?'🎉 День народження сьогодні!':`До дня народження залишилося ${dayDiff(new Date(),d)} дн. (${fmt(d)})`;
+ 
+ // Оновлення значка сповіщень біля блоку дня народження
+ const holder = $('birthdayNotifHolder');
+ holder.innerHTML = '';
+ if (state.birthday) {
+   const bdId = 'birthday_' + state.birthday;
+   const bdNotifs = state.notifications[bdId] || [];
+   if (bdNotifs.length > 0) {
+     const notifBtn = document.createElement('button');
+     notifBtn.className = 'smallbtn notif-badge';
+     notifBtn.textContent = `🔔 ${bdNotifs.length}`;
+     notifBtn.onclick = () => openNotifModal(bdId, 'День народження: ' + state.name);
+     holder.append(notifBtn);
+   }
+ }
+}
 function addLove(){
  const text=$('loveText').value.trim();if(!text){playSound('delete');showToast('Введи текст');return;}
  state.loves.push({id:Date.now(),text});save('mat_loves',state.loves);$('loveText').value='';renderLoves();playSound('success');showToast('Додано до списку ❤️');
@@ -427,36 +448,13 @@ function renderEvents(){
  const container = $('eventList');
  container.innerHTML = '';
  
- let itemsToRender = [];
- 
- const bd = nextBirthday();
- if (state.birthday) {
-   itemsToRender.push({
-     id: 'birthday_' + state.birthday,
-     title: '🎂 День народження: ' + state.name,
-     dateStr: fmt(bd) + ' · щорічно',
-     note: 'Дата народження людини',
-     isBirthday: true
-   });
- }
-
- state.events.forEach(e => {
-   itemsToRender.push({
-     id: 'event_' + e.id,
-     title: e.title,
-     dateStr: fmt(nextEventDate(e)) + (e.yearly ? ' · щороку' : ''),
-     note: e.note,
-     isBirthday: false,
-     rawId: e.id
-   });
- });
-
- if (!itemsToRender.length) {
+ if (!state.events.length) {
    container.innerHTML = '<div class="empty">Важливих дат та подій ще немає.</div>';
    return;
  }
 
- itemsToRender.forEach(item => {
+ state.events.forEach(e => {
+   const itemId = 'event_' + e.id;
    const row = document.createElement('div');
    row.className = 'rowitem';
    
@@ -464,18 +462,18 @@ function renderEvents(){
    top.className = 'rowtop';
    
    const titleSpan = document.createElement('strong');
-   titleSpan.textContent = item.title;
+   titleSpan.textContent = e.title;
    
    const btnGroup = document.createElement('div');
    btnGroup.style.display = 'flex';
    btnGroup.style.gap = '6px';
 
-   const itemNotifs = state.notifications[item.id] || [];
+   const itemNotifs = state.notifications[itemId] || [];
    if (itemNotifs.length > 0) {
      const notifBtn = document.createElement('button');
      notifBtn.className = 'smallbtn notif-badge';
      notifBtn.textContent = `🔔 ${itemNotifs.length}`;
-     notifBtn.onclick = () => openNotifModal(item.id, item.title);
+     notifBtn.onclick = () => openNotifModal(itemId, e.title);
      btnGroup.append(notifBtn);
    }
 
@@ -484,15 +482,9 @@ function renderEvents(){
    del.textContent = 'Видалити';
    del.onclick = () => {
      playSound('delete');
-     if (item.isBirthday) {
-       state.birthday = '';
-       localStorage.removeItem('mat_birthday');
-       updateBirthdayEditor();
-     } else {
-       state.events = state.events.filter(x => x.id !== item.rawId);
-       save('mat_events', state.events);
-     }
-     delete state.notifications[item.id];
+     state.events = state.events.filter(x => x.id !== e.id);
+     save('mat_events', state.events);
+     delete state.notifications[itemId];
      save('mat_item_notifications', state.notifications);
      renderEvents();
      showToast('Запис видалено');
@@ -504,13 +496,13 @@ function renderEvents(){
 
    const info = document.createElement('div');
    info.className = 'muted';
-   info.textContent = item.dateStr;
+   info.textContent = fmt(nextEventDate(e)) + (e.yearly ? ' · щороку' : '');
    row.append(info);
 
-   if (item.note) {
+   if (e.note) {
      const note = document.createElement('div');
      note.className = 'muted';
-     note.textContent = item.note;
+     note.textContent = e.note;
      row.append(note);
    }
 
@@ -559,6 +551,7 @@ function renderModalNotifs() {
       }
       save('mat_item_notifications', state.notifications);
       renderModalNotifs();
+      renderBirthday();
       renderEvents();
     };
 
@@ -570,6 +563,7 @@ function renderModalNotifs() {
 function closeNotifModal() {
   playSound('click');
   $('notifModal').classList.remove('open');
+  renderBirthday();
   renderEvents();
 }
 
