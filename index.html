@@ -7,7 +7,6 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Матюкомір">
 <title>Матюкомір</title>
-<link rel="manifest" href="./manifest.json">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;-webkit-tap-highlight-color:transparent}
 body{background:#090d16;color:#f0f4f8;min-height:100vh;padding:12px 12px 92px;display:flex;justify-content:center}
@@ -132,7 +131,7 @@ h1{font-size:20px}.name{color:#ff416c;background:transparent;border:0;outline:0;
 <section class="section">
 <h2>ℹ️ Як працює застосунок</h2>
 <p class="muted" style="line-height:1.6;">
-🔹 <b>Головна:</b> Фіксуйте спалахи нецензурної лексики, відстежуйте статистику за періодами, рейтинг улюблених слів та серію днів без пропускання (вогник змінює колір та форму кожні 10, 30, 100+ днів у стилі стріків TikTok!).<br><br>
+🔹 <b>Головна:</b> Фіксуйте спалахи нецензурної лексики, відстежуйте статистику за періодами, рейтинг улюблених слів та серію днів без пропускання (вогник змінює колір та форму кожні 10, 30, 100+ днів).<br><br>
 🔹 <b>Блокнот:</b> Зберігайте вподобання людини (що любить / не любить), щоб завжди мати їх під рукою.<br><br>
 🔹 <b>Дати:</b> Додавайте день народження та важливі події. Якщо наближається дата (за 15, 10, 5, 3, 1 день або в саму дату), на картці події з'явиться значок сповіщення. Натисніть на нього, щоб переглянути повідомлення та видалити їх усередині.<br><br>
 🔹 <b>Експорт / Очищення:</b> Робіть резервні копії даних у форматі JSON або очищуйте історію матюків за потреби.
@@ -147,7 +146,6 @@ h1{font-size:20px}.name{color:#ff416c;background:transparent;border:0;outline:0;
 </div>
 </main>
 
-<!-- Модальне вікно перегляду сповіщень конкретної події -->
 <div id="notifModal" class="modal"><div class="modalbox">
 <strong id="modalNotifTitle" style="color:#ffcc00">🔔 Сповіщення</strong>
 <div id="modalNotifContent" style="margin:12px 0;max-height:220px;overflow-y:auto"></div>
@@ -171,7 +169,6 @@ function toggleSound(el) {
   if(soundEnabled) playSound('success');
 }
 
-// Звукові ефекти (Web Audio API)
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 function playSound(type) {
   if (!soundEnabled) return;
@@ -221,7 +218,7 @@ const state = {
  dislikes:read('mat_dislikes',[]),
  events:read('mat_events',[]),
  birthdayName:localStorage.getItem('mat_birthday_name')||'',
- notifications:read('mat_item_notifications',{}), // об'єкт: { itemId: [ {id, text, date} ] }
+ notifications:read('mat_item_notifications',{}),
  period:'all'
 };
 if(!state.first && state.items.length){state.first=state.items.slice().sort((a,b)=>new Date(a.timestamp)-new Date(b.timestamp))[0].timestamp;localStorage.setItem('mat_first_swear',state.first);localStorage.setItem('mat_start_date',state.first);}
@@ -383,7 +380,7 @@ function renderList(container,items,key,empty){
 function renderLoves(){renderList('loveList',state.loves,'loves','Поки немає записів.');}
 function renderDislikes(){renderList('dislikeList',state.dislikes,'dislikes','Поки немає записів.');}
 function addEvent(){
- const title=$('eventTitle'].value.trim(),date=$('eventDate').value;if(!title||!date){playSound('delete');showToast('Вкажи назву та дату');return;}
+ const title=$('eventTitle').value.trim(),date=$('eventDate').value;if(!title||!date){playSound('delete');showToast('Вкажи назву та дату');return;}
  const newEvt = {id:Date.now(),title,date,note:$('eventNote').value.trim(),yearly:$('eventYearly').checked};
  state.events.push(newEvt);
  save('mat_events',state.events);
@@ -413,11 +410,9 @@ function checkReminders() {
     }
   }
 
-  // День народження
   const bd = nextBirthday();
   if (bd) processItem('birthday_' + state.birthday, 'День народження ' + state.name, bd);
 
-  // Інші події
   state.events.forEach(e => {
     processItem('event_' + e.id, e.title, nextEventDate(e));
   });
@@ -434,19 +429,17 @@ function renderEvents(){
  
  let itemsToRender = [];
  
- // Додаємо день народження якщо є
  const bd = nextBirthday();
  if (state.birthday) {
    itemsToRender.push({
      id: 'birthday_' + state.birthday,
      title: '🎂 День народження: ' + state.name,
-     dateStr: fmt(bd) + (state.birthday ? ' · щорічно' : ''),
+     dateStr: fmt(bd) + ' · щорічно',
      note: 'Дата народження людини',
      isBirthday: true
    });
  }
 
- // Додаємо інші події
  state.events.forEach(e => {
    itemsToRender.push({
      id: 'event_' + e.id,
@@ -477,7 +470,6 @@ function renderEvents(){
    btnGroup.style.display = 'flex';
    btnGroup.style.gap = '6px';
 
-   // Перевіряємо чи є сповіщення для цього елемента
    const itemNotifs = state.notifications[item.id] || [];
    if (itemNotifs.length > 0) {
      const notifBtn = document.createElement('button');
