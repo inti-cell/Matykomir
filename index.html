@@ -16,6 +16,14 @@ h1{font-size:20px}.name{color:#ff416c;background:transparent;border:0;outline:0;
 .actions,.tabs,.inline{display:flex;gap:8px}.actions{margin-bottom:18px}.btn,.tab,.chip{border:1px solid #283754;border-radius:11px;padding:10px;background:#1c273e;color:#c5d1e0;font-weight:700;font-size:13px;cursor:pointer}.btn{flex:1}.danger{background:#2b1724;color:#ff7189;border-color:#441e33}.primary{background:linear-gradient(135deg,#ff416c,#ff4b2b);color:white;border:0}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}.card,.section{background:#141c2e;border:1px solid #1e2a45;border-radius:16px;padding:14px}.card.full{grid-column:span 2;display:flex;justify-content:space-between;align-items:center}.muted{color:#8192aa;font-size:12px}.value{font-size:27px;font-weight:900;margin:5px 0}.orange{color:#ff9800}.section{margin-bottom:16px}.section h2{font-size:15px;margin-bottom:12px}.field{margin:10px 0}.field label{display:block;color:#8da4c4;font-size:12px;font-weight:700;margin-bottom:6px}.input,textarea{width:100%;border:1px solid #22314e;border-radius:11px;background:#0b111d;color:white;padding:12px;font-size:14px;outline:0}.input:focus,textarea:focus{border-color:#ff416c}textarea{min-height:75px;resize:vertical}.wide{width:100%;padding:13px}.toggle{display:flex;align-items:center;gap:8px;font-size:13px;margin:12px 0}.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.chip{font-size:11px;padding:7px 9px}.tabs{background:#0b111d;padding:3px;margin-bottom:12px}.tab{flex:1;text-align:center;padding:8px 3px;background:transparent;border:0;color:#8291a7;font-size:11px}.tab.active{background:#ff416c;color:#fff}.report-box{position:relative}.copy-btn{position:absolute;top:8px;right:8px;background:#263352;border:0;border-radius:8px;padding:6px 10px;color:#dbe5f2;font-size:11px;cursor:pointer}.report{background:#1a1524;border:1px solid #381c30;padding:12px;padding-right:45px;border-radius:12px;font-size:13px;line-height:1.5;margin-bottom:12px;white-space:pre-wrap}.rowitem{padding:10px 0;border-bottom:1px solid #253149}.rowitem:last-child{border:0}.rowtop{display:flex;justify-content:space-between;gap:8px;align-items:center}.smallbtn{border:0;border-radius:8px;padding:6px 9px;background:#263352;color:#dbe5f2;font-size:11px;cursor:pointer}.smallbtn.del{background:#3a1d2b;color:#ff8196}.smallbtn.notif-badge{background:#2b2033;color:#ffcc00;border:1px solid #ff9800}.bar{height:8px;background:#0b1329;border-radius:8px;overflow:hidden;margin-top:5px}.bar>i{display:block;height:100%;background:linear-gradient(90deg,#ff416c,#ff4b2b)}.notice{background:#17263a;border:1px solid #2c4565;padding:10px;border-radius:11px;margin:8px 0;font-size:12px;line-height:1.45}.empty{text-align:center;color:#718199;padding:15px;font-size:12px}.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,100px);transition:.25s;background:#1e2a45;border:1px solid #ff416c;border-radius:12px;padding:12px 18px;z-index:5;font-size:13px}.toast.show{transform:translate(-50%,0)}.modal{display:none;position:fixed;inset:0;background:#000b;z-index:6;align-items:center;justify-content:center;padding:20px}.modal.open{display:flex}.modalbox{background:#141c2e;border:1px solid #283754;border-radius:18px;padding:20px;max-width:340px;width:100%}.modalbox p{color:#9aabc1;font-size:13px;margin:10px 0 16px}.modalactions{display:flex;gap:8px}.modalactions button{flex:1}
 .screen{display:none}.screen.active{display:block}.bottomnav{position:fixed;z-index:4;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,480px);display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:9px 10px calc(9px + env(safe-area-inset-bottom));background:#101625;border:1px solid #263552;border-bottom:0;border-radius:18px 18px 0 0;box-shadow:0 -8px 24px #0008}.navbtn{border:0;background:transparent;color:#8192aa;border-radius:11px;padding:8px 3px;font-size:11px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}.navbtn span:first-child{font-size:19px}.navbtn.active{background:#2b2033;color:#ff8196}.screen-title{font-size:18px;margin:4px 2px 14px}.inner-tabs{display:flex;gap:8px;background:#0b111d;padding:4px;border-radius:12px;margin-bottom:14px}.inner-tab{flex:1;border:0;border-radius:9px;padding:10px 6px;background:transparent;color:#8291a7;font-size:12px;font-weight:700;cursor:pointer}.inner-tab.active{background:#ff416c;color:#fff}.inner-pane{display:none}.inner-pane.active{display:block}.birthday-display{font-size:15px;font-weight:800;color:#ffb3c1;margin:4px 0 12px;padding:11px 12px;background:#1a2032;border:1px solid #2b3652;border-radius:11px}
+
+/* Нові стилі для акордеонів блокнота */
+.accordion-header{display:flex;justify-content:space-between;align-items:center;cursor:pointer;padding:12px 14px;background:#1c273e;border:1px solid #283754;border-radius:12px;margin-bottom:10px;user-select:none}
+.accordion-header h2{margin-bottom:0;font-size:14px;color:#ff8196}
+.accordion-arrow{font-size:12px;color:#8291a7;transition:transform 0.3s ease}
+.accordion-header.open .accordion-arrow{transform:rotate(180deg)}
+.accordion-content{display:none;padding:0 4px 10px}
+.accordion-content.open{display:block}
 </style>
 </head>
 <body>
@@ -82,9 +90,23 @@ h1{font-size:20px}.name{color:#ff416c;background:transparent;border:0;outline:0;
 </div>
 <div class="inner-pane" id="notebookSavedPane">
 <section class="section">
-  <h2 style="color:#ff8196">❤️ Що любить</h2><div id="loveList"></div>
-  <div class="divider" style="height:1px;background:#253149;margin:16px 0"></div>
-  <h2 style="color:#ff8196">💔 Що не любить</h2><div id="dislikeList"></div>
+  <!-- Акордеон: Що любить -->
+  <div class="accordion-header" id="loveAccordionHeader" onclick="toggleAccordion('love')">
+    <h2>❤️ Що любить (<span id="loveCountBadge">0</span>)</h2>
+    <span class="accordion-arrow">▼</span>
+  </div>
+  <div class="accordion-content" id="loveAccordionContent">
+    <div id="loveList"></div>
+  </div>
+
+  <!-- Акордеон: Що не любить -->
+  <div class="accordion-header" id="dislikeAccordionHeader" onclick="toggleAccordion('dislike')" style="margin-top: 10px;">
+    <h2>💔 Що не любить (<span id="dislikeCountBadge">0</span>)</h2>
+    <span class="accordion-arrow">▼</span>
+  </div>
+  <div class="accordion-content" id="dislikeAccordionContent">
+    <div id="dislikeList"></div>
+  </div>
 </section>
 </div>
 </div>
@@ -135,7 +157,7 @@ h1{font-size:20px}.name{color:#ff416c;background:transparent;border:0;outline:0;
 <h2>ℹ️ Як працює застосунок</h2>
 <p class="muted" style="line-height:1.6;">
 🔹 <b>Головна:</b> Фіксуйте спалахи нецензурної лексики, відстежуйте статистику за періодами, рейтинг улюблених слів та серію днів без пропускання (вогник змінює колір та форму кожні 10, 30, 100+ днів).<br><br>
-🔹 <b>Блокнот:</b> Зберігайте вподобання людини (що любить / не любить), щоб завжди мати їх під рукою.<br><br>
+🔹 <b>Блокнот:</b> Зберігайте вподобання людини (що любить / не любить), щоб завжди мати їх під рукою у зручних випадаючих списках.<br><br>
 🔹 <b>Дати:</b> Додавайте день народження та важливі події. Якщо наближається дата (за 15, 10, 5, 3, 1 день або в саму дату), біля дня народження або на картці події з'явиться значок сповіщення. Натисніть на нього, щоб переглянути повідомлення та видалити їх усередині.<br><br>
 🔹 <b>Експорт / Очищення:</b> Робіть резервні копії даних у форматі JSON або очищуйте історію матюків за потреби.
 </p>
@@ -367,7 +389,6 @@ function renderBirthday(){
  const d=nextBirthday();
  $('birthdayInfo').textContent=!d?'Додай дату, щоб бачити, скільки залишилося до свята.':dayDiff(new Date(),d)===0?'🎉 День народження сьогодні!':`До дня народження залишилося ${dayDiff(new Date(),d)} дн. (${fmt(d)})`;
  
- // Оновлення значка сповіщень біля блоку дня народження
  const holder = $('birthdayNotifHolder');
  holder.innerHTML = '';
  if (state.birthday) {
@@ -382,6 +403,16 @@ function renderBirthday(){
    }
  }
 }
+
+/* Функція керування акордеонами */
+function toggleAccordion(type) {
+  playSound('click');
+  const header = $(type + 'AccordionHeader');
+  const content = $(type + 'AccordionContent');
+  header.classList.toggle('open');
+  content.classList.toggle('open');
+}
+
 function addLove(){
  const text=$('loveText').value.trim();if(!text){playSound('delete');showToast('Введи текст');return;}
  state.loves.push({id:Date.now(),text});save('mat_loves',state.loves);$('loveText').value='';renderLoves();playSound('success');showToast('Додано до списку ❤️');
@@ -391,7 +422,11 @@ function addDislike(){
  state.dislikes.push({id:Date.now(),text});save('mat_dislikes',state.dislikes);$('dislikeText').value='';renderDislikes();playSound('success');showToast('Додано до списку 💔');
 }
 function renderList(container,items,key,empty){
- const el=$(container);el.innerHTML='';if(!items.length){el.innerHTML='<div class="empty">'+empty+'</div>';return;}
+ const el=$(container);el.innerHTML='';
+ const countBadge = $(key === 'loves' ? 'loveCountBadge' : 'dislikeCountBadge');
+ if(countBadge) countBadge.textContent = items.length;
+
+ if(!items.length){el.innerHTML='<div class="empty">'+empty+'</div>';return;}
  items.forEach(item=>{
   const row=document.createElement('div');row.className='rowitem rowtop';const txt=document.createElement('span');txt.style.whiteSpace='pre-wrap';txt.textContent=item.text;const del=document.createElement('button');del.className='smallbtn del';del.textContent='Видалити';
   del.onclick=()=>{playSound('delete');state[key]=state[key].filter(x=>x.id!==item.id);save(key==='loves'?'mat_loves':'mat_dislikes',state[key]);key==='loves'?renderLoves():renderDislikes();};
@@ -400,6 +435,7 @@ function renderList(container,items,key,empty){
 }
 function renderLoves(){renderList('loveList',state.loves,'loves','Поки немає записів.');}
 function renderDislikes(){renderList('dislikeList',state.dislikes,'dislikes','Поки немає записів.');}
+
 function addEvent(){
  const title=$('eventTitle').value.trim(),date=$('eventDate').value;if(!title||!date){playSound('delete');showToast('Вкажи назву та дату');return;}
  const newEvt = {id:Date.now(),title,date,note:$('eventNote').value.trim(),yearly:$('eventYearly').checked};
