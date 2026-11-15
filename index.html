@@ -17,6 +17,12 @@ h1{font-size:20px}.name{color:#ff416c;background:transparent;border:0;outline:0;
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}.card,.section{background:#141c2e;border:1px solid #1e2a45;border-radius:16px;padding:14px}.card.full{grid-column:span 2;display:flex;justify-content:space-between;align-items:center}.muted{color:#8192aa;font-size:12px}.value{font-size:27px;font-weight:900;margin:5px 0}.orange{color:#ff9800}.section{margin-bottom:16px}.section h2{font-size:15px;margin-bottom:12px}.field{margin:10px 0}.field label{display:block;color:#8da4c4;font-size:12px;font-weight:700;margin-bottom:6px}.input,textarea{width:100%;border:1px solid #22314e;border-radius:11px;background:#0b111d;color:white;padding:12px;font-size:14px;outline:0}.input:focus,textarea:focus{border-color:#ff416c}textarea{min-height:75px;resize:vertical}.wide{width:100%;padding:13px}.toggle{display:flex;align-items:center;gap:8px;font-size:13px;margin:12px 0}.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.chip{font-size:11px;padding:7px 9px}.tabs{background:#0b111d;padding:3px;margin-bottom:12px}.tab{flex:1;text-align:center;padding:8px 3px;background:transparent;border:0;color:#8291a7;font-size:11px}.tab.active{background:#ff416c;color:#fff}.report-box{position:relative}.copy-btn{position:absolute;top:8px;right:8px;background:#263352;border:0;border-radius:8px;padding:6px 10px;color:#dbe5f2;font-size:11px;cursor:pointer}.report{background:#1a1524;border:1px solid #381c30;padding:12px;padding-right:45px;border-radius:12px;font-size:13px;line-height:1.5;margin-bottom:12px;white-space:pre-wrap}.rowitem{padding:10px 0;border-bottom:1px solid #253149}.rowitem:last-child{border:0}.rowtop{display:flex;justify-content:space-between;gap:8px;align-items:center}.smallbtn{border:0;border-radius:8px;padding:6px 9px;background:#263352;color:#dbe5f2;font-size:11px;cursor:pointer}.smallbtn.del{background:#3a1d2b;color:#ff8196}.smallbtn.edit{background:#1f332a;color:#52ffb8}.smallbtn.notif-badge{background:#2b2033;color:#ffcc00;border:1px solid #ff9800}.bar{height:8px;background:#0b1329;border-radius:8px;overflow:hidden;margin-top:5px}.bar>i{display:block;height:100%;background:linear-gradient(90deg,#ff416c,#ff4b2b)}.notice{background:#17263a;border:1px solid #2c4565;padding:10px;border-radius:11px;margin:8px 0;font-size:12px;line-height:1.45}.empty{text-align:center;color:#718199;padding:15px;font-size:12px}.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,100px);transition:.25s;background:#1e2a45;border:1px solid #ff416c;border-radius:12px;padding:12px 18px;z-index:5;font-size:13px}.toast.show{transform:translate(-50%,0)}.modal{display:none;position:fixed;inset:0;background:#000b;z-index:6;align-items:center;justify-content:center;padding:20px}.modal.open{display:flex}.modalbox{background:#141c2e;border:1px solid #283754;border-radius:18px;padding:20px;max-width:340px;width:100%}.modalbox p{color:#9aabc1;font-size:13px;margin:10px 0 16px}.modalactions{display:flex;gap:8px}.modalactions button{flex:1}
 .screen{display:none}.screen.active{display:block}.bottomnav{position:fixed;z-index:4;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,480px);display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:9px 10px calc(9px + env(safe-area-inset-bottom));background:#101625;border:1px solid #263552;border-bottom:0;border-radius:18px 18px 0 0;box-shadow:0 -8px 24px #0008}.navbtn{border:0;background:transparent;color:#8192aa;border-radius:11px;padding:8px 3px;font-size:11px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}.navbtn span:first-child{font-size:19px}.navbtn.active{background:#2b2033;color:#ff8196}.screen-title{font-size:18px;margin:4px 2px 14px}.inner-tabs{display:flex;gap:8px;background:#0b111d;padding:4px;border-radius:12px;margin-bottom:14px}.inner-tab{flex:1;border:0;border-radius:9px;padding:10px 6px;background:transparent;color:#8291a7;font-size:12px;font-weight:700;cursor:pointer}.inner-tab.active{background:#ff416c;color:#fff}.inner-pane{display:none}.inner-pane.active{display:block}.birthday-display{font-size:15px;font-weight:800;color:#ffb3c1;margin:4px 0 12px;padding:11px 12px;background:#1a2032;border:1px solid #2b3652;border-radius:11px}
 
+/* Блок ювілейного матюка в рейтингу */
+.milestone-badge-box{background:linear-gradient(135deg,#1f1a3a,#141c2e);border:1px dashed #ffcc00;border-radius:12px;padding:12px;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.milestone-badge-box .icon{font-size:24px}
+.milestone-badge-box .info div:first-child{font-size:12px;color:#ffcc00;font-weight:bold}
+.milestone-badge-box .info div:last-child{font-size:13px;color:#f0f4f8;margin-top:2px}
+
 /* Акордеони та заголовки */
 .accordion-header{display:flex;justify-content:space-between;align-items:center;cursor:pointer;padding:12px 14px;background:#1c273e;border:1px solid #283754;border-radius:12px;margin-bottom:10px;user-select:none}
 .accordion-header h2{margin-bottom:0;font-size:14px;color:#ff8196}
@@ -76,6 +82,10 @@ h1{font-size:20px}.name{color:#ff416c;background:transparent;border:0;outline:0;
   <button class="copy-btn" onclick="copyReport()" title="Копіювати аналітику">📋</button>
   <div class="report" id="report">Поки що немає записів.</div>
 </div>
+
+<!-- Блок для відображення останнього ювілейного матюка -->
+<div id="milestoneWidgetContainer"></div>
+
 <div class="muted" style="margin-bottom:8px">Рейтинг матюкливих слів (топ-10)</div><div id="rating"><div class="empty">Матюків не зафіксовано 😇</div></div>
 </section>
 </div>
@@ -297,37 +307,56 @@ function dayDiff(a,b){const x=new Date(a.getFullYear(),a.getMonth(),a.getDate())
 function showToast(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2600);}
 function persistItems(){save('mat_items',state.items);}
 
+function getMilestoneInfo(totalCount) {
+  if (totalCount < 100) return null;
+  if (totalCount === 1000000) return { title: '👑 1 000 000 МАТЮКІВ', desc: 'Світовий рекорд абсолютного піку красномовства!' };
+  if (totalCount >= 100000 && totalCount % 100000 === 0) return { title: `🌟 ${totalCount.toLocaleString('uk-UA')} МАТЮКІВ`, desc: 'Космічний ювілей нестримної енергії!' };
+  if (totalCount >= 10000 && totalCount < 100000 && totalCount % 10000 === 0) return { title: `💎 ${totalCount.toLocaleString('uk-UA')} МАТЮКІВ`, desc: 'Епічний рівень неперевершеної майстерності!' };
+  if (totalCount >= 1000 && totalCount < 10000 && totalCount % 1000 === 0) return { title: `🔥 ${totalCount.toLocaleString('uk-UA')} МАТЮКІВ`, desc: 'Тисячний рубіж подолано на відмінно!' };
+  if (totalCount < 1000 && totalCount % 100 === 0) return { title: `🎯 ${totalCount} МАТЮКІВ`, desc: 'Чудовий сотенний ювілей!' };
+  return null;
+}
+
 function checkMilestone(totalCount) {
-  if (totalCount < 100 || totalCount > 1000000) return;
-
-  const formattedNum = totalCount.toLocaleString('uk-UA');
-  let title = '';
-  let desc = '';
-
-  if (totalCount === 1000000) {
-    title = '👑 СВІТОВИЙ РЕКОРД: 1 000 000 МАТЮКІВ!';
-    desc = `Це був мільйонний (${formattedNum}-й) матюк! Він назавжди входить у легенди Матюкоміра — ${state.name} досягла абсолютного піку красномовства!`;
-  } else if (totalCount >= 100000 && totalCount % 100000 === 0) {
-    title = `🌟 ГАЛАКТИЧНИЙ ЮВІЛЕЙ: ${formattedNum} МАТЮКІВ!`;
-    desc = `Неймовірно! Щойно прозвучав ${formattedNum}-й матюк! ${state.name} тримає космічний рівень енергії.`;
-  } else if (totalCount >= 10000 && totalCount < 100000 && totalCount % 10000 === 0) {
-    title = `💎 ЕПІЧНИЙ РІВЕНЬ: ${formattedNum} МАТЮКІВ!`;
-    desc = `Потужна кругла цифра! Це був ${formattedNum}-й зафіксований матюк у скарбничку. Рівень майстерності вражає!`;
-  } else if (totalCount >= 1000 && totalCount < 10000 && totalCount % 1000 === 0) {
-    title = `🔥 ТИСЯЧНИЙ РІВЕНЬ: ${formattedNum} МАТЮКІВ!`;
-    desc = `Оце розмах! Це був рівно ${formattedNum}-й матюк. ${state.name} впевнено тримає планку на висоті!`;
-  } else if (totalCount < 1000 && totalCount % 100 === 0) {
-    title = `🎯 СОТЕННИЙ ЮВІЛЕЙ: ${formattedNum} МАТЮКІВ!`;
-    desc = `Вітаємо! Щойно зафіксовано ${formattedNum}-й матюк! ${state.name} впевнено набирає оберти.`;
-  } else {
-    return;
-  }
+  const info = getMilestoneInfo(totalCount);
+  if (!info) return;
 
   triggerConfetti();
   playSound('milestone');
-  $('milestoneTitle').textContent = title;
-  $('milestoneText').textContent = desc;
+  $('milestoneTitle').textContent = info.title + '!';
+  $('milestoneText').textContent = `Щойно зафіксовано ${totalCount.toLocaleString('uk-UA')}-й матюк! ${state.name} тримає планку.`;
   $('milestoneModal').classList.add('open');
+}
+
+function renderMilestoneWidget() {
+  const container = $('milestoneWidgetContainer');
+  container.innerHTML = '';
+  
+  // Шукаємо найвищий поточний ювілей, який був пройдений
+  let currentMilestone = null;
+  const total = state.items.length;
+  
+  // Проходимося у зворотному порядку від поточного числа до 100, щоб знайти останній ювілей
+  for (let i = total; i >= 100; i--) {
+    const inf = getMilestoneInfo(i);
+    if (inf) {
+      currentMilestone = { count: i, ...inf, wordObj: state.items[i - 1] };
+      break;
+    }
+  }
+
+  if (!currentMilestone) return;
+
+  const box = document.createElement('div');
+  box.className = 'milestone-badge-box';
+  box.innerHTML = `
+    <div class="icon">🏆</div>
+    <div class="info">
+      <div>Останній ювілейний матюк (${currentMilestone.count.toLocaleString('uk-UA')}):</div>
+      <div>«<b>${currentMilestone.wordObj.word}</b>» <i>(${fmt(currentMilestone.wordObj.timestamp, true)})</i></div>
+    </div>
+  `;
+  container.append(box);
 }
 
 function triggerConfetti() {
@@ -478,6 +507,7 @@ function render(){
  $('firstDate').textContent=state.first?fmt(state.first,true):'Не розпочато';
  
  renderQuickChips();
+ renderMilestoneWidget();
 
  const list=filtered(),pTarget=list.filter(i=>i.targeted).length;
  let periodName = 'За весь час';
