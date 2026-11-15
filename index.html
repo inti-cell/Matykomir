@@ -9,31 +9,41 @@
 <title>Матюкомір</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;-webkit-tap-highlight-color:transparent}
-body{background:#090d16;color:#f0f4f8;min-height:100vh;padding:12px 12px 92px;display:flex;justify-content:center}
-.app{width:100%;max-width:480px;background:#101625;border:1px solid #1a233a;border-radius:24px;padding:18px;box-shadow:0 20px 40px #0009}
+body{background:#090d16;color:#f0f4f8;min-height:100vh;padding:12px 12px 92px;display:flex;justify-content:center;overflow-x:hidden}
+.app{width:100%;max-width:480px;background:#101625;border:1px solid #1a233a;border-radius:24px;padding:18px;box-shadow:0 20px 40px #0009;position:relative}
 header{display:flex;align-items:center;gap:12px;margin-bottom:16px}.avatar{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,#ff416c,#ff4b2b);display:grid;place-items:center;font-size:24px}
 h1{font-size:20px}.name{color:#ff416c;background:transparent;border:0;outline:0;font-size:20px;font-weight:800;max-width:130px}.sub{font-size:12px;color:#7a8b9e;margin-top:3px}
 .actions,.tabs,.inline{display:flex;gap:8px}.actions{margin-bottom:18px}.btn,.tab,.chip{border:1px solid #283754;border-radius:11px;padding:10px;background:#1c273e;color:#c5d1e0;font-weight:700;font-size:13px;cursor:pointer}.btn{flex:1}.danger{background:#2b1724;color:#ff7189;border-color:#441e33}.primary{background:linear-gradient(135deg,#ff416c,#ff4b2b);color:white;border:0}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}.card,.section{background:#141c2e;border:1px solid #1e2a45;border-radius:16px;padding:14px}.card.full{grid-column:span 2;display:flex;justify-content:space-between;align-items:center}.muted{color:#8192aa;font-size:12px}.value{font-size:27px;font-weight:900;margin:5px 0}.orange{color:#ff9800}.section{margin-bottom:16px}.section h2{font-size:15px;margin-bottom:12px}.field{margin:10px 0}.field label{display:block;color:#8da4c4;font-size:12px;font-weight:700;margin-bottom:6px}.input,textarea{width:100%;border:1px solid #22314e;border-radius:11px;background:#0b111d;color:white;padding:12px;font-size:14px;outline:0}.input:focus,textarea:focus{border-color:#ff416c}textarea{min-height:75px;resize:vertical}.wide{width:100%;padding:13px}.toggle{display:flex;align-items:center;gap:8px;font-size:13px;margin:12px 0}.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.chip{font-size:11px;padding:7px 9px}.tabs{background:#0b111d;padding:3px;margin-bottom:12px}.tab{flex:1;text-align:center;padding:8px 3px;background:transparent;border:0;color:#8291a7;font-size:11px}.tab.active{background:#ff416c;color:#fff}.report-box{position:relative}.copy-btn{position:absolute;top:8px;right:8px;background:#263352;border:0;border-radius:8px;padding:6px 10px;color:#dbe5f2;font-size:11px;cursor:pointer}.report{background:#1a1524;border:1px solid #381c30;padding:12px;padding-right:45px;border-radius:12px;font-size:13px;line-height:1.5;margin-bottom:12px;white-space:pre-wrap}.rowitem{padding:10px 0;border-bottom:1px solid #253149}.rowitem:last-child{border:0}.rowtop{display:flex;justify-content:space-between;gap:8px;align-items:center}.smallbtn{border:0;border-radius:8px;padding:6px 9px;background:#263352;color:#dbe5f2;font-size:11px;cursor:pointer}.smallbtn.del{background:#3a1d2b;color:#ff8196}.smallbtn.edit{background:#1f332a;color:#52ffb8}.smallbtn.notif-badge{background:#2b2033;color:#ffcc00;border:1px solid #ff9800}.bar{height:8px;background:#0b1329;border-radius:8px;overflow:hidden;margin-top:5px}.bar>i{display:block;height:100%;background:linear-gradient(90deg,#ff416c,#ff4b2b)}.notice{background:#17263a;border:1px solid #2c4565;padding:10px;border-radius:11px;margin:8px 0;font-size:12px;line-height:1.45}.empty{text-align:center;color:#718199;padding:15px;font-size:12px}.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,100px);transition:.25s;background:#1e2a45;border:1px solid #ff416c;border-radius:12px;padding:12px 18px;z-index:5;font-size:13px}.toast.show{transform:translate(-50%,0)}.modal{display:none;position:fixed;inset:0;background:#000b;z-index:6;align-items:center;justify-content:center;padding:20px}.modal.open{display:flex}.modalbox{background:#141c2e;border:1px solid #283754;border-radius:18px;padding:20px;max-width:340px;width:100%}.modalbox p{color:#9aabc1;font-size:13px;margin:10px 0 16px}.modalactions{display:flex;gap:8px}.modalactions button{flex:1}
 .screen{display:none}.screen.active{display:block}.bottomnav{position:fixed;z-index:4;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,480px);display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:9px 10px calc(9px + env(safe-area-inset-bottom));background:#101625;border:1px solid #263552;border-bottom:0;border-radius:18px 18px 0 0;box-shadow:0 -8px 24px #0008}.navbtn{border:0;background:transparent;color:#8192aa;border-radius:11px;padding:8px 3px;font-size:11px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}.navbtn span:first-child{font-size:19px}.navbtn.active{background:#2b2033;color:#ff8196}.screen-title{font-size:18px;margin:4px 2px 14px}.inner-tabs{display:flex;gap:8px;background:#0b111d;padding:4px;border-radius:12px;margin-bottom:14px}.inner-tab{flex:1;border:0;border-radius:9px;padding:10px 6px;background:transparent;color:#8291a7;font-size:12px;font-weight:700;cursor:pointer}.inner-tab.active{background:#ff416c;color:#fff}.inner-pane{display:none}.inner-pane.active{display:block}.birthday-display{font-size:15px;font-weight:800;color:#ffb3c1;margin:4px 0 12px;padding:11px 12px;background:#1a2032;border:1px solid #2b3652;border-radius:11px}
 
-/* Стилі для акордеонів блокнота та подій */
+/* Акордеони та заголовки */
 .accordion-header{display:flex;justify-content:space-between;align-items:center;cursor:pointer;padding:12px 14px;background:#1c273e;border:1px solid #283754;border-radius:12px;margin-bottom:10px;user-select:none}
 .accordion-header h2{margin-bottom:0;font-size:14px;color:#ff8196}
 .accordion-arrow{font-size:12px;color:#8291a7;transition:transform 0.3s ease}
 .accordion-header.open .accordion-arrow{transform:rotate(180deg)}
 .accordion-content{display:none;padding:0 4px 10px}
 .accordion-content.open{display:block}
-
-/* Клікабельна назва події зі стрілкою */
 .event-title-toggle{cursor:pointer;display:inline-flex;align-items:center;gap:6px;user-select:none;font-weight:bold;font-size:15px;color:#f0f4f8}
 .event-title-toggle .event-arrow{font-size:11px;color:#8291a7;transition:transform 0.3s ease}
 .event-title-toggle.open .event-arrow{transform:rotate(180deg)}
 .event-note-content{display:none;margin-top:6px;font-size:12px;color:#8192aa;white-space:pre-wrap;padding-left:4px}
 .event-note-content.open{display:block}
+
+/* Стилі для святкового модального вікна та конфетті */
+.milestone-modal { background: radial-gradient(circle, #1f1a3a 0%, #101625 100%); border: 2px solid #ff416c; text-align: center; }
+.milestone-trophy { font-size: 55px; margin-bottom: 10px; animation: bounce 0.8s infinite alternate; }
+@keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-10px); } }
+.confetti-container { position: fixed; inset: 0; pointer-events: none; z-index: 10; overflow: hidden; display: none; }
+.confetti { position: absolute; width: 10px; height: 10px; background: #ff416c; opacity: 0.8; animation: fall linear forwards; }
+@keyframes fall {
+  0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+}
 </style>
 </head>
 <body>
+<div class="confetti-container" id="confettiContainer"></div>
 <main class="app">
 <header><div class="avatar">🤬</div><div><div class="inline" style="align-items:baseline"><h1>Матюкомір</h1><input id="targetName" class="name" value="Уляна" aria-label="Ім'я людини"></div><div class="sub">Персональний аналізатор красномовства</div></div></header>
 <nav class="bottomnav" aria-label="Головне меню">
@@ -154,7 +164,7 @@ h1{font-size:20px}.name{color:#ff416c;background:transparent;border:0;outline:0;
 <section class="section">
 <h2>ℹ️ Як працює застосунок</h2>
 <p class="muted" style="line-height:1.6;">
-🔹 <b>Головна:</b> Фіксуйте спалахи нецензурної лексики, відстежуйте статистику за періодами, рейтинг улюблених слів (топ-10) та серію днів без пропускання.<br><br>
+🔹 <b>Головна:</b> Фіксуйте спалахи нецензурної лексики, відстежуйте статистику за періодами, рейтинг улюблених слів (топ-10), серію днів та ювілейні матюки (кожні 100 до 1000, далі кожні 1000, кожні 10 000, кожні 100 000 аж до мільйона!).<br><br>
 🔹 <b>Блокнот:</b> Зберігайте вподобання людини у зручних випадаючих списках.<br><br>
 🔹 <b>Дати:</b> Додавайте день народження та важливі події з нагадуваннями.<br><br>
 🔹 <b>Експорт / Очищення:</b> Робіть резервні копії даних у форматі JSON або очищуйте історію матюків за потреби.
@@ -169,13 +179,20 @@ h1{font-size:20px}.name{color:#ff416c;background:transparent;border:0;outline:0;
 </div>
 </main>
 
+<!-- Святкове модальне вікно для ювілейних матюків -->
+<div id="milestoneModal" class="modal"><div class="modalbox milestone-modal">
+<div class="milestone-trophy">🎉</div>
+<strong id="milestoneTitle" style="color:#ffcc00; font-size: 18px;">Ювілейний матюк!</strong>
+<p id="milestoneText" style="color:#f0f4f8; font-size:14px; margin: 12px 0 18px;"></p>
+<div class="modalactions"><button class="btn primary" onclick="closeMilestoneModal()">Святкуємо далі! 🚀</button></div>
+</div></div>
+
 <div id="notifModal" class="modal"><div class="modalbox">
 <strong id="modalNotifTitle" style="color:#ffcc00">🔔 Сповіщення</strong>
 <div id="modalNotifContent" style="margin:12px 0;max-height:220px;overflow-y:auto"></div>
 <div class="modalactions"><button class="btn primary" onclick="closeNotifModal()">Закрити</button></div>
 </div></div>
 
-<!-- Модальне вікно редагування події -->
 <div id="editEventModal" class="modal"><div class="modalbox">
 <strong style="color:#52ffb8">✏️ Редагувати подію</strong>
 <div class="field" style="margin-top:12px"><label>Назва події</label><input class="input" id="editEventTitle"></div>
@@ -232,6 +249,16 @@ function playSound(type) {
       gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
       osc.start(now);
       osc.stop(now + 0.25);
+    } else if (type === 'milestone') {
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(261.63, now);
+      osc.frequency.setValueAtTime(329.63, now + 0.1);
+      osc.frequency.setValueAtTime(392.00, now + 0.2);
+      osc.frequency.setValueAtTime(523.25, now + 0.3);
+      gain.gain.setValueAtTime(0.1, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+      osc.start(now);
+      osc.stop(now + 0.6);
     } else if (type === 'delete') {
       osc.type = 'sawtooth';
       osc.frequency.setValueAtTime(250, now);
@@ -269,13 +296,93 @@ function fmt(d,withTime=false){return new Date(d).toLocaleString('uk-UA',withTim
 function dayDiff(a,b){const x=new Date(a.getFullYear(),a.getMonth(),a.getDate());const y=new Date(b.getFullYear(),b.getMonth(),b.getDate());return Math.round((y-x)/86400000);}
 function showToast(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2600);}
 function persistItems(){save('mat_items',state.items);}
+
+// Логіка ювілейних матюків:
+// 100..900 -> кожен 100-й
+// 1000..9000 -> кожен 1000-й
+// 10000..90000 -> кожен 10000-й
+// 100000..900000 -> кожен 100000-й
+// 1000000 -> мільйон
+function checkMilestone(totalCount) {
+  if (totalCount < 100 || totalCount > 1000000) return;
+
+  const formattedNum = totalCount.toLocaleString('uk-UA');
+  let title = '';
+  let desc = '';
+
+  if (totalCount === 1000000) {
+    title = '👑 СВІТОВИЙ РЕКОРД: 1 000 000 МАТЮКІВ!';
+    desc = `Це був мільйонний (${formattedNum}-й) матюк! Він назавжди входить у легенди Матюкоміра — ${state.name} досягла абсолютного піку красномовства!`;
+  } else if (totalCount >= 100000 && totalCount % 100000 === 0) {
+    title = `🌟 ГАЛАКТИЧНИЙ ЮВІЛЕЙ: ${formattedNum} МАТЮКІВ!`;
+    desc = `Неймовірно! Щойно прозвучав ${formattedNum}-й матюк! ${state.name} тримає космічний рівень енергії.`;
+  } else if (totalCount >= 10000 && totalCount < 100000 && totalCount % 10000 === 0) {
+    title = `💎 ЕПІЧНИЙ РІВЕНЬ: ${formattedNum} МАТЮКІВ!`;
+    desc = `Потужна кругла цифра! Це був ${formattedNum}-й зафіксований матюк у скарбничку. Рівень майстерності вражає!`;
+  } else if (totalCount >= 1000 && totalCount < 10000 && totalCount % 1000 === 0) {
+    title = `🔥 ТИСЯЧНИЙ РІВЕНЬ: ${formattedNum} МАТЮКІВ!`;
+    desc = `Оце розмах! Це був рівно ${formattedNum}-й матюк. ${state.name} впевнено тримає планку на висоті!`;
+  } else if (totalCount < 1000 && totalCount % 100 === 0) {
+    title = `🎯 СОТЕННИЙ ЮВІЛЕЙ: ${formattedNum} МАТЮКІВ!`;
+    desc = `Вітаємо! Щойно зафіксовано ${formattedNum}-й матюк! ${state.name} впевнено набирає оберти.`;
+  } else {
+    return;
+  }
+
+  triggerConfetti();
+  playSound('milestone');
+  $('milestoneTitle').textContent = title;
+  $('milestoneText').textContent = desc;
+  $('milestoneModal').classList.add('open');
+}
+
+function triggerConfetti() {
+  const container = $('confettiContainer');
+  container.innerHTML = '';
+  container.style.display = 'block';
+  const colors = ['#ff416c', '#ff4b2b', '#ffcc00', '#52ffb8', '#00ffcc', '#ff007f'];
+  
+  for (let i = 0; i < 75; i++) {
+    const el = document.createElement('div');
+    el.className = 'confetti';
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.background = colors[Math.floor(Math.random() * colors.length)];
+    el.style.width = (Math.random() * 8 + 6) + 'px';
+    el.style.height = (Math.random() * 8 + 6) + 'px';
+    el.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+    el.style.animationDelay = (Math.random() * 0.5) + 's';
+    container.append(el);
+  }
+
+  setTimeout(() => {
+    container.style.display = 'none';
+    container.innerHTML = '';
+  }, 3500);
+}
+
+function closeMilestoneModal() {
+  playSound('click');
+  $('milestoneModal').classList.remove('open');
+}
+
 function addSwear(){
  const word=$('word').value.trim();if(!word){showToast('Введи слово або фразу');playSound('delete');return;}
  const now=new Date().toISOString();
  state.items.push({id:Date.now(),word,targeted:$('isTargeted').checked,timestamp:now});
  if(!state.first){state.first=now;localStorage.setItem('mat_first_swear',now);localStorage.setItem('mat_start_date',now);}
- persistItems();$('word').value='';$('isTargeted').checked=false;render();playSound('success');showToast('Спалах записано 🔥');
+ persistItems();
+ 
+ const currentTotal = state.items.length;
+ $('word').value='';$('isTargeted').checked=false;render();
+ 
+ checkMilestone(currentTotal);
+ 
+ if (!$('milestoneModal').classList.contains('open')) {
+   playSound('success');
+   showToast('Спалах записано 🔥');
+ }
 }
+
 function quick(w){$('word').value=w;addSwear();}
 function streakStats(){
  const days=[...new Set(state.items.map(i=>dayKey(new Date(i.timestamp))))].sort();
@@ -603,7 +710,6 @@ function renderEvents(){
    const top = document.createElement('div');
    top.className = 'rowtop';
    
-   // Заголовок з кліком для розгортання примітки (якщо примітка є)
    const titleContainer = document.createElement('div');
    
    if (e.note) {
