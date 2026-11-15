@@ -59,7 +59,7 @@ h1{font-size:20px}.name{color:#ff416c;background:transparent;border:0;outline:0;
  <div class="card"><div class="muted orange" id="streakTitleLabel">Матюкливий вогонь 🔥</div><div class="value orange" id="streak">0</div><div class="muted" id="streakLabel">Поточна серія, днів</div></div>
  <div class="card"><div class="muted">Послала МЕНЕ 🎯</div><div class="value" id="targeted">0</div><div class="muted" id="targetPct">0% від усіх матюків</div></div>
  <div class="card"><div class="muted">Улюблений матюк 👑</div><div class="value" id="topWord" style="font-size:19px">---</div><div class="muted" id="topCount">0 використань</div></div>
- <div class="card full"><div><div class="muted">📅 Перший матюк / початок записів</div><div class="muted" id="tracking">Очікується перший спалах</div></div><strong id="firstDate" style="text-align:right;font-size:13px">Не розпочато</strong></div>
+ <div class="card full"><div><div class="muted">📅 Перший матюк</div><div class="muted" id="tracking" style="display:none"></div></div><strong id="firstDate" style="text-align:right;font-size:13px">Не розпочато</strong></div>
  <div class="card full"><div><div class="muted">🏆 Рекорд вогню</div><div class="value orange" id="record" style="font-size:22px">0 днів</div><div class="muted" id="recordDates">Найдовша серія поспіль</div></div><div style="font-size:30px">🏆</div></div>
 </div>
 <section class="section">
@@ -297,12 +297,6 @@ function dayDiff(a,b){const x=new Date(a.getFullYear(),a.getMonth(),a.getDate())
 function showToast(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2600);}
 function persistItems(){save('mat_items',state.items);}
 
-// Логіка ювілейних матюків:
-// 100..900 -> кожен 100-й
-// 1000..9000 -> кожен 1000-й
-// 10000..90000 -> кожен 10000-й
-// 100000..900000 -> кожен 100000-й
-// 1000000 -> мільйон
 function checkMilestone(totalCount) {
   if (totalCount < 100 || totalCount > 1000000) return;
 
@@ -482,7 +476,6 @@ function render(){
  const counts={};all.forEach(i=>counts[i.word]=(counts[i.word]||0)+1);const top=Object.keys(counts).sort((a,b)=>counts[b]-counts[a])[0];
  $('topWord').textContent=top||'---';$('topCount').textContent=top?counts[top]+' використань':'0 використань';
  $('firstDate').textContent=state.first?fmt(state.first,true):'Не розпочато';
- $('tracking').textContent=state.first?'Перший матюк зафіксовано точно':'Очікується перший спалах';
  
  renderQuickChips();
 
@@ -495,8 +488,7 @@ function render(){
  let screenText = `📊 МАТЮКОМІР — АНАЛІТИКА (${periodName})\n`;
  screenText += `👤 Ім'я: ${state.name}\n`;
  screenText += `📌 Усього зафіксовано записів: ${list.length}\n`;
- screenText += `🎯 Спрямовані на мене: ${pTarget} (${list.length?Math.round(pTarget/list.length*100):0}%)\n\n`;
- screenText += `👇 Рейтинг слів дивіться нижче у списку.`;
+ screenText += `🎯 Спрямовані на мене: ${pTarget} (${list.length?Math.round(pTarget/list.length*100):0}%)`;
 
  $('report').textContent = screenText;
 
