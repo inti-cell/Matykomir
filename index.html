@@ -17,6 +17,10 @@ h1{font-size:20px}.name{color:#ff416c;background:transparent;border:0;outline:0;
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}.card,.section{background:#141c2e;border:1px solid #1e2a45;border-radius:16px;padding:14px}.card.full{grid-column:span 2;display:flex;justify-content:space-between;align-items:center}.muted{color:#8192aa;font-size:12px}.value{font-size:27px;font-weight:900;margin:5px 0}.orange{color:#ff9800}.section{margin-bottom:16px}.section h2{font-size:15px;margin-bottom:12px}.field{margin:10px 0}.field label{display:block;color:#8da4c4;font-size:12px;font-weight:700;margin-bottom:6px}.input,textarea{width:100%;border:1px solid #22314e;border-radius:11px;background:#0b111d;color:white;padding:12px;font-size:14px;outline:0}.input:focus,textarea:focus{border-color:#ff416c}textarea{min-height:75px;resize:vertical}.wide{width:100%;padding:13px}.toggle{display:flex;align-items:center;gap:8px;font-size:13px;margin:12px 0}.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.chip{font-size:11px;padding:7px 9px}.tabs{background:#0b111d;padding:3px;margin-bottom:12px}.tab{flex:1;text-align:center;padding:8px 3px;background:transparent;border:0;color:#8291a7;font-size:11px}.tab.active{background:#ff416c;color:#fff}.report-box{position:relative}.copy-btn{position:absolute;top:8px;right:8px;background:#263352;border:0;border-radius:8px;padding:6px 10px;color:#dbe5f2;font-size:11px;cursor:pointer}.report{background:#1a1524;border:1px solid #381c30;padding:12px;padding-right:45px;border-radius:12px;font-size:13px;line-height:1.5;margin-bottom:12px;white-space:pre-wrap}.rowitem{padding:10px 0;border-bottom:1px solid #253149}.rowitem:last-child{border:0}.rowtop{display:flex;justify-content:space-between;gap:8px;align-items:center}.smallbtn{border:0;border-radius:8px;padding:6px 9px;background:#263352;color:#dbe5f2;font-size:11px;cursor:pointer}.smallbtn.del{background:#3a1d2b;color:#ff8196}.smallbtn.edit{background:#1f332a;color:#52ffb8}.smallbtn.notif-badge{background:#2b2033;color:#ffcc00;border:1px solid #ff9800}.bar{height:8px;background:#0b1329;border-radius:8px;overflow:hidden;margin-top:5px}.bar>i{display:block;height:100%;background:linear-gradient(90deg,#ff416c,#ff4b2b)}.notice{background:#17263a;border:1px solid #2c4565;padding:10px;border-radius:11px;margin:8px 0;font-size:12px;line-height:1.45}.empty{text-align:center;color:#718199;padding:15px;font-size:12px}.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,100px);transition:.25s;background:#1e2a45;border:1px solid #ff416c;border-radius:12px;padding:12px 18px;z-index:5;font-size:13px}.toast.show{transform:translate(-50%,0)}.modal{display:none;position:fixed;inset:0;background:#000b;z-index:6;align-items:center;justify-content:center;padding:20px}.modal.open{display:flex}.modalbox{background:#141c2e;border:1px solid #283754;border-radius:18px;padding:20px;max-width:340px;width:100%}.modalbox p{color:#9aabc1;font-size:13px;margin:10px 0 16px}.modalactions{display:flex;gap:8px}.modalactions button{flex:1}
 .screen{display:none}.screen.active{display:block}.bottomnav{position:fixed;z-index:4;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,480px);display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:9px 10px calc(9px + env(safe-area-inset-bottom));background:#101625;border:1px solid #263552;border-bottom:0;border-radius:18px 18px 0 0;box-shadow:0 -8px 24px #0008}.navbtn{border:0;background:transparent;color:#8192aa;border-radius:11px;padding:8px 3px;font-size:11px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}.navbtn span:first-child{font-size:19px}.navbtn.active{background:#2b2033;color:#ff8196}.screen-title{font-size:18px;margin:4px 2px 14px}.inner-tabs{display:flex;gap:8px;background:#0b111d;padding:4px;border-radius:12px;margin-bottom:14px}.inner-tab{flex:1;border:0;border-radius:9px;padding:10px 6px;background:transparent;color:#8291a7;font-size:12px;font-weight:700;cursor:pointer}.inner-tab.active{background:#ff416c;color:#fff}.inner-pane{display:none}.inner-pane.active{display:block}.birthday-display{font-size:15px;font-weight:800;color:#ffb3c1;margin:4px 0 12px;padding:11px 12px;background:#1a2032;border:1px solid #2b3652;border-radius:11px}
 
+/* Сірий / активний вогник */
+.fire-icon{display:inline-block;transition:filter 0.3s ease, opacity 0.3s ease}
+.fire-icon.inactive{filter:grayscale(100%);opacity:0.45}
+
 /* Блок ювілейного матюка в рейтингу */
 .milestone-badge-box{background:linear-gradient(135deg,#1f1a3a,#141c2e);border:1px dashed #ffcc00;border-radius:12px;padding:12px;margin-bottom:12px;display:flex;align-items:center;gap:10px}
 .milestone-badge-box .icon{font-size:24px}
@@ -62,9 +66,10 @@ h1{font-size:20px}.name{color:#ff416c;background:transparent;border:0;outline:0;
 <div class="screen active" id="screen-home">
 <div class="grid">
  <div class="card"><div class="muted">Усього матюків 💀</div><div class="value" id="total">0</div><div class="muted">За весь час</div></div>
- <div class="card"><div class="muted orange" id="streakTitleLabel">Матюкливий вогонь 🔥</div><div class="value orange" id="streak">0</div><div class="muted" id="streakLabel">Поточна серія, днів</div></div>
+ <div class="card"><div class="muted orange" id="streakTitleLabel">Матюкливий вогонь <span class="fire-icon inactive" id="streakFireIcon">🔥</span></div><div class="value orange" id="streak">0</div><div class="muted" id="streakLabel">Поточна серія, днів</div></div>
  <div class="card"><div class="muted">Послала МЕНЕ 🎯</div><div class="value" id="targeted">0</div><div class="muted" id="targetPct">0% від усіх матюків</div></div>
  <div class="card"><div class="muted">Улюблений матюк 👑</div><div class="value" id="topWord" style="font-size:19px">---</div><div class="muted" id="topCount">0 використань</div></div>
+ <div class="card full"><div><div class="muted">Матюк дня 🗣️</div><div class="value" id="dayTopWord" style="font-size:21px;color:#ffb3c1">---</div><div class="muted" id="dayTopCount">Сьогодні ще не було</div></div><div style="font-size:30px">🗣️</div></div>
  <div class="card full"><div><div class="muted">📅 Перший матюк</div><div class="muted" id="tracking" style="display:none"></div></div><strong id="firstDate" style="text-align:right;font-size:13px">Не розпочато</strong></div>
  <div class="card full"><div><div class="muted">🏆 Рекорд вогню</div><div class="value orange" id="record" style="font-size:22px">0 днів</div><div class="muted" id="recordDates">Найдовша серія поспіль</div></div><div style="font-size:30px">🏆</div></div>
 </div>
@@ -332,11 +337,9 @@ function renderMilestoneWidget() {
   const container = $('milestoneWidgetContainer');
   container.innerHTML = '';
   
-  // Шукаємо найвищий поточний ювілей, який був пройдений
   let currentMilestone = null;
   const total = state.items.length;
   
-  // Проходимося у зворотному порядку від поточного числа до 100, щоб знайти останній ювілей
   for (let i = total; i >= 100; i--) {
     const inf = getMilestoneInfo(i);
     if (inf) {
@@ -418,7 +421,7 @@ function streakStats(){
    let cursor=dateOnly(days.includes(today)?today:yesterday);
    const set=new Set(days);while(set.has(dayKey(cursor))){current++;cursor.setDate(cursor.getDate()-1);}
  }
- return {current,best:state.record,last:days[days.length-1]||null};
+ return {current,best:state.record,last:days[days.length-1]||null,hasToday:days.includes(today)};
 }
 function filtered(){
  const now=new Date();
@@ -429,24 +432,25 @@ function filtered(){
  return true;});
 }
 
-function updateStreakStyle(streakVal) {
+function updateStreakStyle(streakVal, hasToday) {
   const labelEl = $('streakTitleLabel');
   const valueEl = $('streak');
   valueEl.textContent = streakVal;
+  const fireClass = hasToday ? 'fire-icon' : 'fire-icon inactive';
   
   if (streakVal >= 100) {
     const hundreds = Math.floor(streakVal / 100) * 100;
-    labelEl.textContent = `⚡ Ранг ${hundreds}+ 🔥`;
-    valueEl.style.color = '#00ffcc';
+    labelEl.innerHTML = `⚡ Ранг ${hundreds}+ <span class="${fireClass}">🔥</span>`;
+    valueEl.style.color = hasToday ? '#00ffcc' : '#8192aa';
   } else if (streakVal >= 30) {
-    labelEl.textContent = `💎 Мега Вогонь 🔥`;
-    valueEl.style.color = '#ff007f';
+    labelEl.innerHTML = `💎 Мега Вогонь <span class="${fireClass}">🔥</span>`;
+    valueEl.style.color = hasToday ? '#ff007f' : '#8192aa';
   } else if (streakVal >= 10) {
-    labelEl.textContent = `🔥 Гаряча серія 🔥`;
-    valueEl.style.color = '#ffcc00';
+    labelEl.innerHTML = `🔥 Гаряча серія <span class="${fireClass}">🔥</span>`;
+    valueEl.style.color = hasToday ? '#ffcc00' : '#8192aa';
   } else {
-    labelEl.textContent = `Матюкливий вогонь 🔥`;
-    valueEl.style.color = '#ff9800';
+    labelEl.innerHTML = `Матюкливий вогонь <span class="${fireClass}">🔥</span>`;
+    valueEl.style.color = hasToday ? '#ff9800' : '#8192aa';
   }
 }
 
@@ -499,11 +503,21 @@ function renderQuickChips() {
 function render(){
  const all=state.items, targeted=all.filter(i=>i.targeted).length, stats=streakStats();
  $('total').textContent=all.length;$('targeted').textContent=targeted;$('targetPct').textContent=(all.length?Math.round(targeted/all.length*100):0)+'% від усіх матюків';
- updateStreakStyle(stats.current);
- $('streakLabel').textContent=stats.current?'Поточна серія днів 🔥':'Поточна серія згасла';
+ updateStreakStyle(stats.current, stats.hasToday);
+ $('streakLabel').textContent=stats.hasToday?'Вогонь горить сьогодні 🔥':(stats.current?'Підкинь матюк, щоб підтримати':'Поточна серія згасла');
  $('record').textContent=stats.best+' '+(stats.best===1?'день':'днів');$('recordDates').textContent='Найдовша серія поспіль · рекорд не згорає';
  const counts={};all.forEach(i=>counts[i.word]=(counts[i.word]||0)+1);const top=Object.keys(counts).sort((a,b)=>counts[b]-counts[a])[0];
  $('topWord').textContent=top||'---';$('topCount').textContent=top?counts[top]+' використань':'0 використань';
+
+ // Матюк дня
+ const todayStr = dayKey(new Date());
+ const todayItems = all.filter(i => dayKey(new Date(i.timestamp)) === todayStr);
+ const dayCounts = {};
+ todayItems.forEach(i => dayCounts[i.word] = (dayCounts[i.word] || 0) + 1);
+ const dayTop = Object.keys(dayCounts).sort((a, b) => dayCounts[b] - dayCounts[a])[0];
+ $('dayTopWord').textContent = dayTop || '---';
+ $('dayTopCount').textContent = dayTop ? `${dayCounts[dayTop]} раз(ів) за сьогодні` : 'Сьогодні ще не було';
+
  $('firstDate').textContent=state.first?fmt(state.first,true):'Не розпочато';
  
  renderQuickChips();
